@@ -136,3 +136,9 @@ type SandboxLoginProps = {
   address: string;
   signature: string;
 };
+
+type AppContextProps = {
+  isMounting: boolean;
+  isLoggedIn: boolean;
+  userInfo?: QuyxDev;
+};
