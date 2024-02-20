@@ -23,7 +23,8 @@ const ResetPassword = () => {
       setIsLoading(true);
 
       const resp = await api.verifyResetPasswordHash({ hash });
-      if (!resp.status) setError(resp.message);
+      if (!resp.status)
+        setError(resp.message ?? "Invalid or already used link, request a new one");
 
       setIsLoading(false);
     })();

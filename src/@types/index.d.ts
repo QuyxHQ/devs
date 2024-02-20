@@ -169,3 +169,7 @@ type AnchorLinkProps = {
   handleClick?: () => void;
   title?: string;
 };
+
+type LayoutDependantsProps = {
+  setDisplaySidebar: React.Dispatch<React.SetStateAction<boolean>>;
+};

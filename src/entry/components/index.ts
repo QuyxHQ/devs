@@ -6,3 +6,5 @@ export { default as Loader } from "./Loader";
 export { default as LoadingContentOnButton } from "./LoadingContentOnButton";
 export { default as Logo } from "./Logo";
 export { default as Middleware } from "./Middleware";
+export { default as Navbar } from "./Navbar";
+export { default as Sidebar } from "./Sidebar";

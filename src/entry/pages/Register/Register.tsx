@@ -38,7 +38,7 @@ const Register = () => {
       <form className="form-container py-5 px-4" onSubmit={register}>
         <h1 className="mb-4 pb-2">Get Started</h1>
         <div className="row">
-          <div className="col-12 col-md-6">
+          <div className="col-6">
             <FormGroup
               className="mb-4"
               getter={firstName}
@@ -50,7 +50,7 @@ const Register = () => {
             />
           </div>
 
-          <div className="col-12 col-md-6">
+          <div className="col-6">
             <FormGroup
               className="mb-4"
               getter={lastName}

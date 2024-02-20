@@ -12,3 +12,10 @@ export function maskEmail(email: string) {
 
   return maskedLocalPart + domainPart;
 }
+
+export function getInitials(name: string) {
+  const split = name.split(" ");
+  if (!split.length) return "QX";
+  if (split.length > 1) return `${split[0].charAt(0)}${split[1].charAt(0)}`;
+  return split[0].charAt(0);
+}
