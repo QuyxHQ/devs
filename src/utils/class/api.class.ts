@@ -35,17 +35,13 @@ class Api {
     firstName,
     lastName,
     company,
-    role,
-    heardUsFrom,
     password,
-  }: RegisterProps) {
+  }: Omit<RegisterProps, "role" | "heardUsFrom">) {
     const { data, error } = await this.apiSdk.getInstance().post("/dev", {
       email,
       firstName,
       lastName,
       company,
-      role,
-      heardUsFrom,
       password,
     });
 
@@ -139,10 +135,11 @@ class Api {
     lastName,
     company,
     role,
-  }: Omit<RegisterProps, "heardUsFrom" | "password">) {
+    heardUsFrom,
+  }: Omit<RegisterProps, "password">) {
     const { data, error } = await this.apiSdk
       .getInstance()
-      .put("/dev/edit", { email, firstName, lastName, company, role });
+      .put("/dev/edit", { email, firstName, lastName, company, role, heardUsFrom });
 
     if (error) {
       customToast({

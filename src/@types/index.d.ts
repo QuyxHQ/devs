@@ -142,3 +142,30 @@ type AppContextProps = {
   isLoggedIn: boolean;
   userInfo?: QuyxDev;
 };
+
+type IconProps = {
+  width?: number;
+  height?: number;
+  fill?: string;
+  className?: string;
+};
+
+type FormGroupProps = {
+  getter: string;
+  setter: React.Dispatch<React.SetStateAction<string>>;
+  label: string;
+  placeholder?: string;
+  isPasswordField?: boolean;
+  inputType?: React.HTMLInputTypeAttribute;
+  className?: string;
+  required?: boolean;
+};
+
+type AnchorLinkProps = {
+  to: string;
+  className?: string;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+  handleClick?: () => void;
+  title?: string;
+};

@@ -22,8 +22,14 @@ const Middleware = ({ children }: { children: React.JSX.Element }) => {
           navigate("/");
         }
 
-        if (!isLoggedIn && !unprotectedRoutes.includes(location.pathname)) {
-          navigate("/login");
+        if (!isLoggedIn) {
+          if (
+            location.pathname.substring(0, 15) !== "/reset-password" &&
+            location.pathname !== "/forgot-password" &&
+            !unprotectedRoutes.includes(location.pathname)
+          ) {
+            navigate("/login");
+          }
         }
       }
     })();
