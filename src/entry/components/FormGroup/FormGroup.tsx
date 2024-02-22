@@ -10,6 +10,8 @@ const FormGroup = ({
   isPasswordField,
   required,
   placeholder,
+  rows,
+  readOnly,
 }: FormGroupProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -17,15 +19,29 @@ const FormGroup = ({
     <div className={`form-group ${className}`}>
       <label htmlFor={label.split(" ").join("").toLowerCase()}>{label}</label>
       <div className="position-relative">
-        <input
-          type={isPasswordField && open ? "text" : inputType}
-          name={label.split(" ").join("").toLowerCase()}
-          id={label.split(" ").join("").toLowerCase()}
-          value={getter}
-          placeholder={placeholder}
-          onChange={(e) => setter(e.target.value)}
-          required={required}
-        />
+        {inputType == "textarea" ? (
+          <textarea
+            name={label.split(" ").join("").toLowerCase()}
+            id={label.split(" ").join("").toLowerCase()}
+            rows={rows}
+            value={getter}
+            placeholder={placeholder}
+            onChange={(e) => setter(e.target.value)}
+            required={required}
+          />
+        ) : (
+          <input
+            type={isPasswordField && open ? "text" : inputType}
+            name={label.split(" ").join("").toLowerCase()}
+            id={label.split(" ").join("").toLowerCase()}
+            value={getter}
+            placeholder={placeholder}
+            onChange={(e) => setter(e.target.value)}
+            required={required}
+            readOnly={readOnly}
+          />
+        )}
+
         {isPasswordField ? (
           open ? (
             <RxEyeOpen

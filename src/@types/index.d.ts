@@ -119,6 +119,7 @@ type QuyxLog = Base & {
 };
 
 type Base = {
+  _id: string;
   createdAt: Date;
   updatedAt: Date;
 };
@@ -140,6 +141,8 @@ type SandboxLoginProps = {
 type AppContextProps = {
   isMounting: boolean;
   isLoggedIn: boolean;
+  shouldRefresh: boolean;
+  refresh: () => void;
   userInfo?: QuyxDev;
 };
 
@@ -156,9 +159,11 @@ type FormGroupProps = {
   label: string;
   placeholder?: string;
   isPasswordField?: boolean;
-  inputType?: React.HTMLInputTypeAttribute;
+  inputType?: React.HTMLInputTypeAttribute | "textarea";
   className?: string;
   required?: boolean;
+  rows?: number;
+  readOnly?: boolean;
 };
 
 type AnchorLinkProps = {
@@ -172,4 +177,28 @@ type AnchorLinkProps = {
 
 type LayoutDependantsProps = {
   setDisplaySidebar: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+type ModalProps = {
+  displayModal: boolean;
+  setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
+  children?: React.JSX.Element;
+};
+
+type TagInputProps = {
+  setter: React.Dispatch<React.SetStateAction<string>>;
+  getter: string;
+  label: string;
+  placeholder?: string;
+  className?: string;
+  required?: boolean;
+};
+
+type RenderTableProps<T> = {
+  limit: number;
+  page: number;
+  total: number;
+  setLimit: React.Dispatch<React.SetStateAction<number>>;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  data: T[];
 };

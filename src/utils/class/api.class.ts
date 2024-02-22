@@ -256,12 +256,16 @@ class Api {
   }
 
   async getAllApps({ page, limit }: { page: number; limit: number }) {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .get(`/app?limit=${limit}&page=${page}`);
+    const resp = await this.apiSdk.getInstance().get(`/app?limit=${limit}&page=${page}`);
+    return resp.data as ApiPaginationResponse<QuyxApp | undefined>;
+  }
 
-    if (error) return undefined;
-    return data.data as ApiPaginationResponse<QuyxApp>;
+  async searchApps({ q, page, limit }: { q: string; page: number; limit: number }) {
+    const resp = await this.apiSdk
+      .getInstance()
+      .get(`/app/search?q=${q}&limit=${limit}&page=${page}`);
+
+    return resp.data as ApiPaginationResponse<QuyxApp | undefined>;
   }
 
   async getSingleApp({ app }: { app: string }) {
@@ -382,7 +386,7 @@ class Api {
   }
 
   async getRequestHealth() {
-    const resp = await this.apiSdk.getInstance().get(`/dev/health`);
+    const resp = await this.apiSdk.getInstance().get(`/log/dev/health`);
 
     return resp.data as ApiResponse<{
       successful_requests: number;
@@ -402,7 +406,7 @@ class Api {
   async getRequestHealthCustom({ from, to }: { from: Date; to: Date }) {
     const resp = await this.apiSdk
       .getInstance()
-      .get(`/log/dev/health?from=${from}&to=${to}`);
+      .get(`/log/dev/health/custom?from=${from}&to=${to}`);
 
     return resp.data as ApiResponse<{
       successful_requests: number;

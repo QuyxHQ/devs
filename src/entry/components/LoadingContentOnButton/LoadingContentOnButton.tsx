@@ -1,10 +1,10 @@
-const LoadingContentOnButton = () => {
+const LoadingContentOnButton = ({ text }: { text?: string }) => {
   return (
     <div
       className="d-flex align-items-center justify-content-center"
-      style={{ gap: "0.8rem" }}
+      style={{ gap: "0.6rem" }}
     >
-      <span>Processing</span>
+      <span>{text ? text : "Processing"}</span>
       <span className="loader-span"></span>
     </div>
   );

@@ -7,6 +7,7 @@ export const useAppStore = () => useContext(AppContext);
 const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const [isMounting, setIsMounting] = useState<boolean>(true);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [refresh, setRefresh] = useState<boolean>(true);
   const [userInfo, setUserInfo] = useState<QuyxDev>();
 
   useEffect(() => {
@@ -21,7 +22,15 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ isMounting, isLoggedIn, userInfo }}>
+    <AppContext.Provider
+      value={{
+        isMounting,
+        isLoggedIn,
+        userInfo,
+        shouldRefresh: refresh,
+        refresh: () => setRefresh(!refresh),
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

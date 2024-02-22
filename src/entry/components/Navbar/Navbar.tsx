@@ -12,7 +12,7 @@ const Navbar = ({ setDisplaySidebar }: LayoutDependantsProps) => {
         <p className="d-flex flex-column flex-sm-row align-items-center justify-content-center">
           <span className="d-flex align-items-center">
             <span className="tag">BETA</span>
-            <span>Tell us what you feel abouy Quyx!</span>
+            <span>Tell us what you feel about Quyx!</span>
           </span>
           <a href="https://google.com" target="_blank">
             Fill out this form.

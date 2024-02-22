@@ -1,5 +1,6 @@
 import {
   TbApps,
+  TbAward,
   TbBox,
   TbFile,
   TbHome2,
@@ -22,6 +23,7 @@ const Sidebar = () => {
     },
     {
       to: "/apps",
+      match: "/app",
       title: "Apps",
       icon: <TbApps />,
     },
@@ -55,11 +57,16 @@ const Sidebar = () => {
       title: "Settings",
       icon: <TbSettings />,
     },
+    {
+      to: "/credits",
+      title: "Credits",
+      icon: <TbAward />,
+    },
   ];
 
   return (
     <div className="sidebar-content">
-      <AnchorLink to="/" className="d-block mb-2 mt-3">
+      <AnchorLink to="/" className="d-block mb-2 mt-3 mb-md-4 mb-lg-2">
         <div className="d-flex align-items-center pt-3 pb-1 ps-2 px-md-0 ps-lg2 justify-content-center brand">
           <Logo fill="#fff" width={35} height={35} />
           <span className="d-md-none d-lg-block">uyx</span>
@@ -76,7 +83,12 @@ const Sidebar = () => {
       <ul>
         {navigation.map((item, i) => (
           <li
-            className={location.pathname == item.to ? "active" : ""}
+            className={
+              location.pathname == item.to ||
+              location.pathname.substring(0, item.match?.length) == item.match
+                ? "active"
+                : ""
+            }
             key={`navigation-${i}`}
           >
             <AnchorLink to={item.to}>

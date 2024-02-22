@@ -19,7 +19,7 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
         <Sidebar />
       </div>
 
-      <main className="main-wrapper">
+      <main className="main-wrapper mb-5">
         <Navbar setDisplaySidebar={setDisplaySidebar} />
         <main className="body">{children}</main>
       </main>

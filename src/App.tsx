@@ -88,7 +88,7 @@ const App = () => {
 
   return (
     <>
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster position="bottom-center" reverseOrder={false} />
       <RouterProvider router={router} />
     </>
   );

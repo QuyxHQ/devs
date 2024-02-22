@@ -8,5 +8,8 @@ export enum TOAST_STATUS {
 }
 
 export function customToast({ type, message }: { type: TOAST_STATUS; message: string }) {
-  return toast.custom((_) => <div className={type}>{message}</div>);
+  // return toast.custom((_) => <div className={type}>{message}</div>);
+  if (type == TOAST_STATUS.SUCCESS) return toast.success(message);
+  if (type == TOAST_STATUS.ERROR) return toast.error(message);
+  return;
 }
