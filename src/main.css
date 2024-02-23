@@ -12,7 +12,7 @@
 
 @media screen and (min-width: 992px) {
   :root {
-    --sidebar-width: 18.5rem;
+    --sidebar-width: 19rem;
     --padding: 1.2rem;
   }
 }
@@ -154,6 +154,23 @@ hr {
   transform: translateY(-50%);
   right: 1rem;
   color: #888;
+  cursor: pointer;
+}
+
+.form-group .copy {
+  right: 0.3rem;
+  background-color: #f6f6f6;
+  border: 0.7px solid #ced5e5;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3rem;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -322,7 +339,8 @@ hr {
   position: sticky;
   position: -webkit-sticky;
   backdrop-filter: blur(6px);
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 1);
+  border-bottom: 1px solid #ced5e56c;
   top: 0px;
   z-index: 8;
   display: flex;
@@ -977,4 +995,125 @@ select {
 .address-w-b h4 {
   font-size: 0.9rem;
   font-weight: 600;
+}
+
+.single-app-title .back {
+  color: #aaa;
+  gap: 0.5rem;
+  width: max-content;
+  align-items: center;
+}
+
+.single-app-title > div.d-flex {
+  gap: 0.8rem;
+}
+
+.single-app-title .back span {
+  border-bottom: 1.5px solid #aaa;
+  padding: 0.2rem 0;
+}
+
+.single-app-title h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+}
+
+.single-app-title .buttons {
+  gap: 0.5rem;
+}
+
+.single-app-title .buttons button {
+  display: flex;
+  gap: 0.6rem;
+  border: 1px solid #ced5e5c6;
+  background-color: #fff;
+  padding: 0.8rem 0.9rem;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  font-weight: 500;
+  color: #000;
+  outline: none;
+}
+
+.single-app-title .buttons button span {
+  padding-right: 0.15rem;
+}
+
+.single-app-title .buttons button svg {
+  font-size: 1rem;
+}
+
+.keys h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.keys .docs {
+  width: 100%;
+  max-width: 40rem;
+  padding: 1rem 0;
+}
+
+.keys .docs h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+}
+
+.keys .docs svg {
+  font-size: 2.5rem;
+  stroke: goldenrod;
+  stroke-width: 1;
+}
+
+.keys .docs p {
+  font-size: 0.95rem;
+  line-height: 200%;
+}
+
+.keys .docs code {
+  border: 1px solid #ced5e5;
+  background-color: #ced5e51f;
+  white-space: nowrap !important;
+  word-break: keep-all;
+  padding: 0.13rem 0.15rem;
+  font-size: 0.85rem;
+  border-radius: 0px;
+  letter-spacing: 0.4px;
+}
+
+.metrics-box {
+  border: 1px solid #ced5e594;
+  padding: 2.3rem 1.5rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  background-color: #fff;
+  height: 100%;
+}
+
+.metrics-box p {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #888;
+  line-height: 170%;
+}
+
+.metrics-box h3 {
+  font-size: 3.3rem;
+  font-weight: 600;
+}
+
+.metrics-box h3 span {
+  color: #aaa;
+  font-weight: 400;
+  font-size: 1.4rem;
 }

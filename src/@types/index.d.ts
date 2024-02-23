@@ -55,6 +55,7 @@ type AppMetrics = {
   avg_response_time_min5: number;
   successRate_hour1: number;
   successRate_hour24: number;
+  total_users: number;
 };
 
 type QuyxDev = Base & {

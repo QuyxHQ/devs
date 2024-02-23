@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
+import { VscCopy } from "react-icons/vsc";
+import { copyToClipboard } from "../../../utils/helpers";
 
 const FormGroup = ({
   getter,
@@ -41,6 +43,15 @@ const FormGroup = ({
             readOnly={readOnly}
           />
         )}
+
+        {readOnly ? (
+          <div
+            onClick={() => copyToClipboard(getter)}
+            className="position-absolute copy d-flex align-items-center"
+          >
+            <VscCopy />
+          </div>
+        ) : null}
 
         {isPasswordField ? (
           open ? (

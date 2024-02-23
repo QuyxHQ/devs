@@ -269,7 +269,7 @@ class Api {
   }
 
   async getSingleApp({ app }: { app: string }) {
-    const { data, error } = await this.apiSdk.getInstance().get(`/single/${app}`);
+    const { data, error } = await this.apiSdk.getInstance().get(`/app/single/${app}`);
     if (error) return undefined;
     return data.data as QuyxApp;
   }
@@ -367,8 +367,20 @@ class Api {
     return resp.data as ApiResponse<AppMetrics | undefined>;
   }
 
-  async getAppLogs({ app, status }: { app: string; status?: "failed" | "successful" }) {
-    const endpoint = `/log/app/status/${status ? status : "all"}/${app}`;
+  async getAppLogs({
+    app,
+    status,
+    limit,
+    page,
+  }: {
+    app: string;
+    status?: "failed" | "successful";
+    limit: number;
+    page: number;
+  }) {
+    const endpoint = `/log/app/status/${
+      status ? status : "all"
+    }/${app}?limit=${limit}&page=${page}`;
 
     const resp = await this.apiSdk.getInstance().get(endpoint);
     return resp.data as ApiPaginationResponse<QuyxLog>;

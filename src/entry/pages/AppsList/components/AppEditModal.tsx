@@ -70,7 +70,7 @@ const AppEditModal = ({
     if (isLoading) return;
     setIsLoading(true);
 
-    const resp = await api.editApp({
+    await api.editApp({
       app: data._id,
       name,
       description,
@@ -80,10 +80,11 @@ const AppEditModal = ({
       allowedDomains: allowedDomains.length == 0 ? null : allowedDomains.split(","),
     });
 
-    if (resp) {
-      refresh(); //# internal refresh
-      close(false); //# close the modal
-    }
+    // don't refresh if it is editing
+    // if (resp) {
+    //   refresh(); //# internal refresh
+    //   close(false); //# close the modal
+    // }
 
     setIsLoading(false);
   }
