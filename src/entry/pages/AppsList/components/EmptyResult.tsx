@@ -14,7 +14,7 @@ const EmptyResult = () => {
       />
 
       <div className="error-div py-1">
-        <EmptyResultIcon width={280} height={280} />
+        <EmptyResultIcon width={265} height={265} />
         <h3>Empty Result</h3>
 
         <p>

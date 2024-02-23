@@ -353,6 +353,7 @@ hr {
 main.body {
   padding-right: var(--padding);
   padding-left: var(--padding);
+  padding-top: 0.6rem;
 }
 
 .navbar .brand {
@@ -605,8 +606,9 @@ select {
 
 .error-div p {
   font-size: 0.95rem;
-  color: #888;
-  margin-bottom: 1.3rem;
+  color: #999;
+  margin-bottom: 1.1rem;
+  line-height: 185%;
 }
 
 .error-div p a {
