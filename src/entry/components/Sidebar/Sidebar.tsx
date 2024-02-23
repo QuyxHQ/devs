@@ -53,7 +53,8 @@ const Sidebar = () => {
       icon: <TbUser />,
     },
     {
-      to: "/settings",
+      to: "/sudo",
+      match: "/settings",
       title: "Settings",
       icon: <TbSettings />,
     },
