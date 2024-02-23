@@ -145,6 +145,7 @@ type AppContextProps = {
   shouldRefresh: boolean;
   refresh: () => void;
   userInfo?: QuyxDev;
+  metadata?: QuyxMetadata;
 };
 
 type IconProps = {
@@ -160,11 +161,15 @@ type FormGroupProps = {
   label: string;
   placeholder?: string;
   isPasswordField?: boolean;
-  inputType?: React.HTMLInputTypeAttribute | "textarea";
+  inputType?: React.HTMLInputTypeAttribute | "textarea" | "select";
   className?: string;
   required?: boolean;
   rows?: number;
   readOnly?: boolean;
+  options?: {
+    label: string;
+    value: string;
+  }[];
 };
 
 type AnchorLinkProps = {
@@ -202,4 +207,11 @@ type RenderTableProps<T> = {
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   data: T[];
+};
+
+type QuyxMetadata = {
+  SUDO_TTL: number;
+  KYC_OTP_TTL: number;
+  HASH_TTL: number;
+  APP_PUBLIC_KEY: string;
 };

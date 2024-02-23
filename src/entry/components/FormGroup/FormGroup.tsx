@@ -14,6 +14,7 @@ const FormGroup = ({
   placeholder,
   rows,
   readOnly,
+  options,
 }: FormGroupProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
@@ -31,6 +32,28 @@ const FormGroup = ({
             onChange={(e) => setter(e.target.value)}
             required={required}
           />
+        ) : inputType == "select" ? (
+          <select
+            name={label.split(" ").join("").toLowerCase()}
+            id={label.split(" ").join("").toLowerCase()}
+            value={getter}
+            onChange={(e) => setter(e.target.value)}
+            required={required}
+          >
+            <option value="" disabled>
+              {placeholder ?? "--choose option--"}
+            </option>
+
+            {options?.map((option, index) => (
+              <option
+                key={`${label.split(" ").join("").toLowerCase()}-${index}`}
+                value={option.value}
+              >
+                {option.label}
+              </option>
+            ))}
+            <option value="Other">Other</option>
+          </select>
         ) : (
           <input
             type={isPasswordField && open ? "text" : inputType}

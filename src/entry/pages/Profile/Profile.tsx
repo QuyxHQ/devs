@@ -41,7 +41,7 @@ const Profile = () => {
             <h4>{userInfo?.email}</h4>
 
             <div className="icons">
-              {!userInfo?.isEmailVerified ? null : (
+              {userInfo?.isEmailVerified ? null : (
                 <AnchorLink to="/verify" className="warning">
                   <TbAlertTriangle
                     onClick={() => setDisplayModal(true)}

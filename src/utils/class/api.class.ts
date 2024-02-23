@@ -4,6 +4,13 @@ import { TOAST_STATUS, customToast } from "../toast.utils";
 class Api {
   constructor(private apiSdk: ApiHttpClient) {}
 
+  async metadata() {
+    const { data, error } = await this.apiSdk.getInstance().get("/metadata");
+
+    if (error) return undefined;
+    return data.data as QuyxMetadata;
+  }
+
   async login({ email, password }: LoginProps) {
     const { data, error } = await this.apiSdk
       .getInstance()
@@ -110,7 +117,7 @@ class Api {
   async sudo({ password }: { password: string }) {
     const { data, error } = await this.apiSdk
       .getInstance()
-      .put("/dev/sudo", { password });
+      .post("/dev/sudo", { password });
 
     if (error) {
       customToast({
@@ -136,10 +143,15 @@ class Api {
     company,
     role,
     heardUsFrom,
-  }: Omit<RegisterProps, "password">) {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .put("/dev/edit", { email, firstName, lastName, company, role, heardUsFrom });
+  }: Partial<Omit<RegisterProps, "password">>) {
+    const { data, error } = await this.apiSdk.getInstance().put("/dev/edit", {
+      email,
+      firstName,
+      lastName,
+      company: company ?? null,
+      role: role ?? null,
+      heardUsFrom: heardUsFrom ?? null,
+    });
 
     if (error) {
       customToast({

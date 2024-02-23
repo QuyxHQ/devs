@@ -9,6 +9,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(true);
   const [userInfo, setUserInfo] = useState<QuyxDev>();
+  const [metadata, setMetadata] = useState<QuyxMetadata>();
 
   useEffect(() => {
     (async function () {
@@ -17,6 +18,10 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
       const _userInfo = await api.current();
       setUserInfo(_userInfo);
       setIsLoggedIn(_userInfo ? true : false);
+
+      const metadata = await api.metadata();
+      setMetadata(metadata);
+
       setIsMounting(false);
     })();
   }, []);
@@ -27,6 +32,7 @@ const AppProvider = ({ children }: { children: React.JSX.Element }) => {
         isMounting,
         isLoggedIn,
         userInfo,
+        metadata,
         shouldRefresh: refresh,
         refresh: () => setRefresh(!refresh),
       }}
