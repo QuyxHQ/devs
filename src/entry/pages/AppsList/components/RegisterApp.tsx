@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { FormGroup, LoadingContentOnButton, TagsInput } from "../../..";
 import { api } from "../../../../utils/class/api.class";
 import { useAppStore } from "../../../context/AppProvider";
@@ -119,4 +119,4 @@ const RegisterApp = ({ close }: { close: (val: boolean) => void }) => {
   );
 };
 
-export default RegisterApp;
+export default React.memo(RegisterApp);

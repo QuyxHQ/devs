@@ -1,5 +1,6 @@
 import { HiOutlineUsers } from "react-icons/hi2";
 import { AnchorLink } from "../../..";
+import React from "react";
 
 const RenderMetrics = ({ data, app }: { data?: AppMetrics; app: string }) => {
   return (
@@ -98,4 +99,4 @@ const RenderMetrics = ({ data, app }: { data?: AppMetrics; app: string }) => {
   );
 };
 
-export default RenderMetrics;
+export default React.memo(RenderMetrics);

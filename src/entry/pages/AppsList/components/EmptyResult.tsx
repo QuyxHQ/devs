@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { EmptyResultIcon, Modal } from "../../..";
 import { RegisterApp } from ".";
 
@@ -32,4 +32,4 @@ const EmptyResult = () => {
   );
 };
 
-export default EmptyResult;
+export default React.memo(EmptyResult);

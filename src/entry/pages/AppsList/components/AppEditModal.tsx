@@ -337,4 +337,4 @@ const AddressesAccessComponent = ({
   );
 };
 
-export default AppEditModal;
+export default React.memo(AppEditModal);

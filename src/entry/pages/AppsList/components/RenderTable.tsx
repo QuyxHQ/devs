@@ -176,4 +176,4 @@ const RenderTable = ({
   );
 };
 
-export default RenderTable;
+export default React.memo(RenderTable);

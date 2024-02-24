@@ -1,5 +1,6 @@
 import { TbBulb } from "react-icons/tb";
 import { FormGroup } from "../../..";
+import React from "react";
 
 const ViewKeys = ({
   apiKey,
@@ -82,4 +83,4 @@ const ViewKeys = ({
   );
 };
 
-export default ViewKeys;
+export default React.memo(ViewKeys);
