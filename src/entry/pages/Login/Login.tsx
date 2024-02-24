@@ -26,7 +26,7 @@ const Login = () => {
       <Logo width={50} height={50} />
 
       <form className="form-container py-5 px-4" onSubmit={login}>
-        <h1 className="mb-4 pb-2">Hodwy! Dev</h1>
+        <h1 className="mb-4 pb-2">Howdy! Dev</h1>
 
         <FormGroup
           className="mb-4"

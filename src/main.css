@@ -12,7 +12,7 @@
 
 @media screen and (min-width: 992px) {
   :root {
-    --sidebar-width: 19rem;
+    --sidebar-width: 18.5rem;
     --padding: 1.2rem;
   }
 }
@@ -132,6 +132,7 @@ hr {
   font-weight: 450;
   width: 100%;
   transition: 0.2s ease-in-out all;
+  color: inherit;
 }
 
 .form-group textarea {
@@ -245,7 +246,7 @@ hr {
   padding: 0.4rem 0.3rem;
 }
 
-.btn .loader-span {
+.loader-span {
   width: 13px;
   height: 13px;
   border-radius: 50%;
@@ -660,6 +661,10 @@ select {
   -webkit-animation-name: fromTop;
   -webkit-animation-duration: 0.4s;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.modal-dialog .modal-box.md {
+  max-width: 30rem;
 }
 
 @keyframes fromTop {
@@ -1098,6 +1103,10 @@ select {
   letter-spacing: 0.4px;
 }
 
+.h-100 {
+  height: 100%;
+}
+
 .metrics-box {
   border: 1px solid #ced5e594;
   padding: 2.3rem 1.5rem;
@@ -1217,4 +1226,196 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.complete-onboarding {
+  border: 1px solid #ced5e5bc;
+  background-color: rgba(218, 165, 32, 0.03);
+  padding: 2.5rem 1.5rem;
+  border-radius: 10px;
+}
+
+.complete-onboarding h3 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
+  color: crimson;
+}
+
+.complete-onboarding h3 span {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.complete-onboarding h3 svg {
+  font-size: 1.8rem;
+}
+
+.complete-onboarding .email-verify {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.complete-onboarding .email-verify p {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.complete-onboarding .email-verify > div {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  justify-content: space-between;
+}
+
+.complete-onboarding .email-verify > div > div {
+  width: 100%;
+}
+
+.complete-onboarding .email-verify > div h4 {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: #999999dd;
+}
+
+.complete-onboarding .email-verify > div button {
+  border: 1.5px solid crimson;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  background-color: #fff;
+  color: crimson;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.complete-onboarding .email-verify > div button.verified-true {
+  border: 1.5px solid green;
+  color: green;
+}
+
+.libs {
+  border-top: 1px solid #ced5e5;
+}
+
+.libs > h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 2rem;
+  margin: 2.5rem 0;
+  font-weight: 500;
+  justify-content: center;
+}
+
+.libs > h3 span {
+  border-bottom: 2.5px solid #000;
+  padding: 0.1rem 0;
+}
+
+.single-lib {
+  border: 1px solid #ced5e5aa;
+  height: 100%;
+  padding: 2rem 1.5rem;
+  gap: 1.4rem;
+  border-radius: 10px;
+}
+
+.single-lib h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.single-lib span.pill {
+  background-color: rgba(30, 143, 255, 0.08);
+  border: 1px solid dodgerblue;
+  color: dodgerblue;
+  font-weight: 600;
+  font-size: 0.7rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 100px;
+  display: block;
+  margin-bottom: 0.5rem;
+  width: max-content;
+}
+
+.single-lib p.text {
+  font-size: 0.85rem;
+  line-height: 200%;
+  font-weight: 400;
+  color: #555;
+  margin-top: 1rem;
+}
+
+.single-lib p.platform {
+  width: max-content;
+  padding: 1rem 0;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+}
+
+.single-lib p.platform strong {
+  font-weight: 600;
+}
+
+.single-lib p.platform span {
+  border-bottom: 1.5px solid purple;
+  color: purple;
+  font-weight: 600;
+  padding: 0.15rem 0.05rem;
+  font-size: 0.7rem;
+}
+
+.single-lib a {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  color: blue;
+  font-weight: 500;
+  transition: 0.2s ease-in-out all;
+}
+
+.single-lib a:hover {
+  gap: 0.5rem;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.pre-verify h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #000;
+  line-height: 150%;
+  margin-bottom: 0.5rem;
+}
+
+.pre-verify p {
+  font-size: 0.9rem;
+  line-height: 200%;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 25rem;
+  margin-bottom: 2rem;
+  color: #888;
+}
+
+.pre-verify p strong {
+  font-weight: 500;
+  color: #000;
 }

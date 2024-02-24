@@ -166,6 +166,8 @@ type FormGroupProps = {
   required?: boolean;
   rows?: number;
   readOnly?: boolean;
+  displayLabel?: boolean;
+  displayOthersInSelect?: boolean;
   options?: {
     label: string;
     value: string;
@@ -189,6 +191,7 @@ type ModalProps = {
   displayModal: boolean;
   setDisplayModal: React.Dispatch<React.SetStateAction<boolean>>;
   children?: React.JSX.Element;
+  size?: "md" | "lg";
 };
 
 type TagInputProps = {

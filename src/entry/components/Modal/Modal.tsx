@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const Modal = ({ displayModal, setDisplayModal, children }: ModalProps) => {
+const Modal = ({ displayModal, setDisplayModal, children, size }: ModalProps) => {
   function handleOverlayClick(e: any) {
     if (e.target.classList.contains("modal-dialog")) setDisplayModal(false);
     return;
@@ -21,7 +21,7 @@ const Modal = ({ displayModal, setDisplayModal, children }: ModalProps) => {
       className={`modal-dialog ${displayModal ? "d-flex" : "d-none"}`}
       onClick={handleOverlayClick}
     >
-      <div className="modal-box">{children || <p>modal content here</p>}</div>
+      <div className={`modal-box ${size}`}>{children || <p>modal content here</p>}</div>
     </div>
   );
 };

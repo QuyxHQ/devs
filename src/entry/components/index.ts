@@ -13,3 +13,4 @@ export { default as Modal } from "./Modal";
 export { default as Navbar } from "./Navbar";
 export { default as Sidebar } from "./Sidebar";
 export { default as TagsInput } from "./TagsInput";
+export { default as VerifyEmailComponent } from "./VerifyEmailComponent";

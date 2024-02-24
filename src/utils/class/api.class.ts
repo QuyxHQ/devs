@@ -29,11 +29,6 @@ class Api {
     localStorage.setItem("quyx_dev_access_token", accessToken);
     localStorage.setItem("quyx_dev_refresh_token", refreshToken);
 
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message,
-    });
-
     return true;
   }
 
@@ -65,10 +60,23 @@ class Api {
     localStorage.setItem("quyx_dev_access_token", accessToken);
     localStorage.setItem("quyx_dev_refresh_token", refreshToken);
 
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message,
+    return true;
+  }
+
+  async onboard({ role, heardUsFrom }: { role: string; heardUsFrom: string }) {
+    const { data, error } = await this.apiSdk.getInstance().put("/dev/onboard", {
+      role,
+      heardUsFrom,
     });
+
+    if (error || !data.status) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: data.message ?? "Unable to complete request",
+      });
+
+      return false;
+    }
 
     return true;
   }
@@ -106,11 +114,6 @@ class Api {
       return false;
     }
 
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message,
-    });
-
     return true;
   }
 
@@ -127,11 +130,6 @@ class Api {
 
       return false;
     }
-
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message,
-    });
 
     return true;
   }
@@ -374,6 +372,13 @@ class Api {
     return true;
   }
 
+  async getDevDashboardMetrics() {
+    const resp = await this.apiSdk.getInstance().get("/log/dev/metadata");
+    return resp.data as ApiResponse<
+      { total_requests: number; total_apps: number } | undefined
+    >;
+  }
+
   async getAppMetrics({ app }: { app: string }) {
     const resp = await this.apiSdk.getInstance().get(`/log/app/metrics/${app}`);
     return resp.data as ApiResponse<AppMetrics | undefined>;
@@ -413,8 +418,8 @@ class Api {
     const resp = await this.apiSdk.getInstance().get(`/log/dev/health`);
 
     return resp.data as ApiResponse<{
-      successful_requests: number;
-      failed_requests: number;
+      success_24: number;
+      failed_24: number;
     }>;
   }
 
@@ -436,6 +441,22 @@ class Api {
       successful_requests: number;
       failed_requests: number;
     }>;
+  }
+
+  async logout() {
+    const { data, error } = await this.apiSdk.getInstance().delete("/session");
+    if (error) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: data.message ?? "Unable to complete request",
+      });
+
+      return false;
+    }
+
+    localStorage.removeItem("quyx_dev_access_token");
+    localStorage.removeItem("quyx_dev_refresh_token");
+    return true;
   }
 }
 

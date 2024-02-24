@@ -46,10 +46,10 @@ const Settings = () => {
     <section>
       <h1 className="page-title mb-4">Settings</h1>
 
-      <form className="mb-5 pt-2" action="#" method="post" onSubmit={edit}>
+      <form className="mb-5 pt-3" action="#" method="post" onSubmit={edit}>
         <div className="col-12">
           <div className="row g-4">
-            <div className="col-12 col-md-9">
+            <div className="col-12 col-md-11 col-xl-9 mx-auto">
               <div className="row g-4">
                 <div className="col-12 col-sm-6 col-md-5">
                   <FormGroup
@@ -116,9 +116,9 @@ const Settings = () => {
               </div>
             </div>
 
-            <div className="col-12 col-md-3">
+            {/* <div className="col-12 col-md-3">
               <div className="doodles-bg" />
-            </div>
+            </div> */}
           </div>
         </div>
       </form>

@@ -2,18 +2,32 @@ import {
   TbApps,
   TbAward,
   TbBox,
-  TbFile,
   TbHome2,
+  TbLogout,
   TbRobot,
   TbSettings,
   TbUser,
   TbWriting,
 } from "react-icons/tb";
-import { AnchorLink, Logo } from "..";
+import { AnchorLink, LoadingContentOnButton, Logo } from "..";
 import { useAppStore } from "../../context/AppProvider";
+import { useState } from "react";
+import { api } from "../../../utils/class/api.class";
 
 const Sidebar = () => {
   const { userInfo } = useAppStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  async function logout() {
+    if (isLoading) return;
+    if (!confirm("Are you sure you want to logout?")) return;
+
+    setIsLoading(true);
+    const resp = await api.logout();
+    if (resp) window.location.href = "/login";
+
+    setIsLoading(false);
+  }
 
   const navigation = [
     {
@@ -39,13 +53,8 @@ const Sidebar = () => {
     },
     {
       to: "/chat-ai",
-      title: "AI Help",
+      title: "AI Chat",
       icon: <TbRobot />,
-    },
-    {
-      to: "https://docs.quyx.io",
-      title: "Documentation",
-      icon: <TbFile />,
     },
     {
       to: "/profile",
@@ -62,6 +71,12 @@ const Sidebar = () => {
       to: "/credits",
       title: "Credits",
       icon: <TbAward />,
+    },
+    {
+      to: "#",
+      title: "Logout",
+      icon: <TbLogout />,
+      fn: logout,
     },
   ];
 
@@ -91,10 +106,18 @@ const Sidebar = () => {
                 : ""
             }
             key={`navigation-${i}`}
+            onClick={item.fn}
           >
             <AnchorLink to={item.to}>
               {item.icon}
-              <span className="d-md-none d-lg-block">{item.title}</span>
+
+              <span className="d-md-none d-lg-block">
+                {isLoading && item.fn ? (
+                  <LoadingContentOnButton text="hang on.." />
+                ) : (
+                  item.title
+                )}
+              </span>
             </AnchorLink>
           </li>
         ))}

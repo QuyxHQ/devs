@@ -3,6 +3,7 @@ import "./main.css";
 import {
   AIChat,
   AppsList,
+  Credit,
   Dashboard,
   ForgotPassword,
   Login,
@@ -83,6 +84,10 @@ const App = () => {
     {
       path: "/sudo",
       element: <Middleware children={<Sudo />} />,
+    },
+    {
+      path: "/credits",
+      element: <Middleware children={<Credit />} />,
     },
   ]);
 

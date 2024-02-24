@@ -1,6 +1,6 @@
 import { TbAlertTriangle, TbPencil } from "react-icons/tb";
 import { useAppStore } from "../../context/AppProvider";
-import { AnchorLink, Modal } from "../..";
+import { AnchorLink, Modal, VerifyEmailComponent } from "../..";
 import { useState } from "react";
 import { ResetPassword } from "./components";
 
@@ -8,13 +8,16 @@ const Profile = () => {
   const { userInfo } = useAppStore();
 
   const [displayModal, setDisplayModal] = useState<boolean>(false);
+  const [size, setSize] = useState<"md" | "lg">("lg");
+  const [modalBody, setModalBody] = useState<React.JSX.Element>();
 
   return (
     <section>
       <Modal
         displayModal={displayModal}
         setDisplayModal={setDisplayModal}
-        children={<ResetPassword close={setDisplayModal} />}
+        size={size}
+        children={modalBody}
       />
 
       <h1 className="page-title mb-4">Profile</h1>
@@ -42,13 +45,16 @@ const Profile = () => {
 
             <div className="icons">
               {userInfo?.isEmailVerified ? null : (
-                <AnchorLink to="/verify" className="warning">
-                  <TbAlertTriangle
-                    onClick={() => setDisplayModal(true)}
-                    stroke="crimson"
-                    title="Verify email address"
-                  />
-                </AnchorLink>
+                <TbAlertTriangle
+                  onClick={() => {
+                    setSize("md");
+                    setModalBody(<VerifyEmailComponent close={setDisplayModal} />);
+                    setDisplayModal(true);
+                  }}
+                  stroke="crimson"
+                  className="pointer"
+                  title="Verify email address"
+                />
               )}
 
               <AnchorLink to="/sudo">
@@ -89,7 +95,11 @@ const Profile = () => {
         className="btn border mb-5"
         style={{ width: "100%", maxWidth: "11rem" }}
         type="button"
-        onClick={() => setDisplayModal(true)}
+        onClick={() => {
+          setSize("lg");
+          setModalBody(<ResetPassword close={setDisplayModal} />);
+          setDisplayModal(true);
+        }}
       >
         Reset Password
       </button>

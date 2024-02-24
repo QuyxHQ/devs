@@ -15,12 +15,17 @@ const FormGroup = ({
   rows,
   readOnly,
   options,
+  displayLabel = true,
+  displayOthersInSelect = true,
 }: FormGroupProps) => {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <div className={`form-group ${className}`}>
-      <label htmlFor={label.split(" ").join("").toLowerCase()}>{label}</label>
+      {displayLabel ? (
+        <label htmlFor={label.split(" ").join("").toLowerCase()}>{label}</label>
+      ) : null}
+
       <div className="position-relative">
         {inputType == "textarea" ? (
           <textarea
@@ -52,7 +57,8 @@ const FormGroup = ({
                 {option.label}
               </option>
             ))}
-            <option value="Other">Other</option>
+
+            {displayOthersInSelect ? <option value="Other">Other</option> : null}
           </select>
         ) : (
           <input
