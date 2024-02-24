@@ -1,7 +1,7 @@
 import {
   TbApps,
-  TbAward,
   TbBox,
+  TbFile,
   TbHome2,
   TbLogout,
   TbRobot,
@@ -68,9 +68,9 @@ const Sidebar = () => {
       icon: <TbSettings />,
     },
     {
-      to: "/credits",
-      title: "Credits",
-      icon: <TbAward />,
+      to: "//docs.quyx.xyz",
+      title: "Documentation",
+      icon: <TbFile />,
     },
     {
       to: "#",

@@ -1419,3 +1419,64 @@ select {
   font-weight: 500;
   color: #000;
 }
+
+.middleware-loader {
+  overflow: hidden;
+}
+
+.middleware-loader svg {
+  animation: zoom 2.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.extra-box {
+  background-color: purple;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 2rem 0;
+  margin-bottom: 1.8rem;
+}
+
+footer h4 {
+  font-weight: 400;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+footer h4 strong {
+  font-weight: 400;
+  /* color: #555; */
+}
+
+footer p {
+  font-weight: 300;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+footer p a {
+  font-weight: 500;
+  color: blue;
+  border-bottom: 1px solid blue;
+}

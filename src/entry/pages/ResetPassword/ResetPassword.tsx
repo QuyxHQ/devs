@@ -1,14 +1,8 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../utils/class/api.class";
 import { useParams } from "react-router-dom";
-import {
-  AnchorLink,
-  BugIcon,
-  FormGroup,
-  Loader,
-  LoadingContentOnButton,
-  Logo,
-} from "../..";
+import { AnchorLink, FormGroup, Loader, LoadingContentOnButton, Logo } from "../..";
+import { AiOutlineQuestion } from "react-icons/ai";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState<string>("");
@@ -57,7 +51,7 @@ const ResetPassword = () => {
             className="d-flex flex-column pt-4 pb-2 align-items-center justify-content-center"
             style={{ gap: "1.3rem" }}
           >
-            <BugIcon width={60} height={60} />
+            <AiOutlineQuestion size={60} />
             <p
               className="title-case mb-2"
               style={{

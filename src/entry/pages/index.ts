@@ -1,6 +1,5 @@
 export { default as AIChat } from "./AIChat";
 export { default as AppsList } from "./AppsList";
-export { default as Credit } from "./Credit";
 export { default as Dashboard } from "./Dashboard";
 export { default as ForgotPassword } from "./ForgotPassword";
 export { default as Login } from "./Login";

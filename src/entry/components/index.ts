@@ -1,6 +1,5 @@
 export { default as AIChatIcon } from "./AIChatIcon";
 export { default as AnchorLink } from "./AnchorLink";
-export { default as BugIcon } from "./BugIcon";
 export { default as EmptyResultIcon } from "./EmptyResultIcon";
 export { default as FormGroup } from "./FormGroup";
 export { default as Layout } from "./Layout";

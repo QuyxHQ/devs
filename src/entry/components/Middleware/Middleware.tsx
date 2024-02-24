@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAppStore } from "../../context/AppProvider";
 import { useEffect } from "react";
-import { Layout } from "..";
+import { Layout, Logo } from "..";
 
 const Middleware = ({ children }: { children: React.JSX.Element }) => {
   const navigate = useNavigate();
@@ -36,7 +36,12 @@ const Middleware = ({ children }: { children: React.JSX.Element }) => {
   }, [isMounting, isLoggedIn, navigate]);
 
   return isMounting ? (
-    "Loading"
+    <div
+      className="middleware-loader d-flex align-items-center justify-content-center w-100"
+      style={{ height: "100vh" }}
+    >
+      <Logo width={60} height={60} />
+    </div>
   ) : outOfLayoutRoutes.includes(location.pathname) ||
     location.pathname.substring(0, 15) == "/reset-password" ? (
     children

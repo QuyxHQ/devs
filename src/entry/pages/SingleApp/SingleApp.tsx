@@ -107,7 +107,7 @@ const SingleApp = () => {
       </div>
 
       <div className="col-12 mb-5">
-        <RenderMetrics data={metrics} />
+        <RenderMetrics data={metrics} app={app._id} />
       </div>
 
       <div className="col-12 mb-4">

@@ -70,7 +70,7 @@ const AppEditModal = ({
     if (isLoading) return;
     setIsLoading(true);
 
-    await api.editApp({
+    const resp = await api.editApp({
       app: data._id,
       name,
       description,
@@ -80,17 +80,17 @@ const AppEditModal = ({
       allowedDomains: allowedDomains.length == 0 ? null : allowedDomains.split(","),
     });
 
-    // don't refresh if it is editing
-    // if (resp) {
-    //   refresh(); //# internal refresh
-    //   close(false); //# close the modal
-    // }
+    if (resp) {
+      refresh(); //# internal refresh
+      close(false); //# close the modal
+    }
 
     setIsLoading(false);
   }
 
   async function deleteApp() {
     if (isLoading) return;
+    if (!confirm("Are you sure you want to delete this app?!")) return;
     setIsLoading(true);
 
     const resp = await api.deleteApp({ app: data._id });
@@ -274,7 +274,7 @@ const AddressesAccessComponent = ({
         </div>
 
         <div>
-          <label htmlFor="type-whitelist">
+          <label className="pointer" htmlFor="type-whitelist">
             <h4>Whitelisted Addresses</h4>
           </label>
 
@@ -310,7 +310,7 @@ const AddressesAccessComponent = ({
         </div>
 
         <div>
-          <label htmlFor="type-blacklist">
+          <label className="pointer" htmlFor="type-blacklist">
             <h4>Blacklisted Addresses</h4>
           </label>
 

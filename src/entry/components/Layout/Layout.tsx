@@ -21,7 +21,25 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
 
       <main className="main-wrapper">
         <Navbar setDisplaySidebar={setDisplaySidebar} />
-        <main className="body">{children}</main>
+
+        <div
+          className="d-flex flex-column justify-content-between"
+          style={{ minHeight: "80vh" }}
+        >
+          <main className="body">{children}</main>
+
+          <footer>
+            <h4>
+              <strong>Quyx</strong> &copy; {new Date().getFullYear()}
+            </h4>
+            <p>
+              <span>Illustrations by:</span>&nbsp;
+              <a href="https://storyset.com" target="_blank">
+                Storyset
+              </a>
+            </p>
+          </footer>
+        </div>
       </main>
     </section>
   );
