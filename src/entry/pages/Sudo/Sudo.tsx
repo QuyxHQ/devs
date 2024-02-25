@@ -19,7 +19,7 @@ const Sudo = () => {
         new Date(userInfo.verifiedPasswordLastOn).getTime() + metadata.SUDO_TTL >
         Date.now()
       ) {
-        navigate("/settings");
+        return navigate("/settings");
       }
     })();
   }, [userInfo, metadata]);
@@ -41,7 +41,7 @@ const Sudo = () => {
 
       <form className="form-container py-5 px-4" onSubmit={sudo}>
         <div className="mb-4">
-          <h1>Confirm password </h1>
+          <h1>Confirm access</h1>
           <p className="intro"></p>
         </div>
 
@@ -51,13 +51,22 @@ const Sudo = () => {
           setter={setPassword}
           label="Password"
           inputType="password"
+          placeholder="e.g. ********"
           required
           isPasswordField
         />
 
-        <button className="btn" type="submit" disabled={isLoading}>
+        <button className="btn mb-4" type="submit" disabled={isLoading}>
           {isLoading ? <LoadingContentOnButton /> : "Confirm password"}
         </button>
+
+        <AnchorLink
+          to="/"
+          className="d-block link-in-form mb-0 pb-0"
+          style={{ textAlign: "center" }}
+        >
+          <p className="mb-0 pb-0">Back to Dashboard</p>
+        </AnchorLink>
       </form>
 
       <div className="extra">

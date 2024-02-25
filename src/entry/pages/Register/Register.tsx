@@ -80,6 +80,7 @@ const Register = () => {
           label="Company"
           inputType="text"
           placeholder="e.g. QuyxHQ"
+          required
         />
 
         <FormGroup

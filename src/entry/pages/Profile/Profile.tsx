@@ -31,7 +31,7 @@ const Profile = () => {
             </h4>
 
             <div className="icons">
-              <AnchorLink to="/sudo">
+              <AnchorLink to="/settings">
                 <TbPencil />
               </AnchorLink>
             </div>
@@ -57,7 +57,7 @@ const Profile = () => {
                 />
               )}
 
-              <AnchorLink to="/sudo">
+              <AnchorLink to="/settings">
                 <TbPencil />
               </AnchorLink>
             </div>
@@ -70,7 +70,7 @@ const Profile = () => {
             <h4>{userInfo?.company}</h4>
 
             <div className="icons">
-              <AnchorLink to="/sudo">
+              <AnchorLink to="/settings">
                 <TbPencil />
               </AnchorLink>
             </div>
@@ -83,7 +83,7 @@ const Profile = () => {
             <h4>{userInfo?.role ?? "n/a"}</h4>
 
             <div className="icons">
-              <AnchorLink to="/sudo">
+              <AnchorLink to="/settings">
                 <TbPencil />
               </AnchorLink>
             </div>

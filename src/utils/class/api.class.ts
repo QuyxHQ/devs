@@ -7,7 +7,7 @@ class Api {
   async metadata() {
     const { data, error } = await this.apiSdk.getInstance().get("/metadata");
 
-    if (error) return undefined;
+    if (error || !data.status) return undefined;
     return data.data as QuyxMetadata;
   }
 
@@ -139,16 +139,12 @@ class Api {
     firstName,
     lastName,
     company,
-    role,
-    heardUsFrom,
   }: Partial<Omit<RegisterProps, "password">>) {
     const { data, error } = await this.apiSdk.getInstance().put("/dev/edit", {
       email,
       firstName,
       lastName,
       company: company ?? null,
-      role: role ?? null,
-      heardUsFrom: heardUsFrom ?? null,
     });
 
     if (error) {
@@ -441,6 +437,50 @@ class Api {
       successful_requests: number;
       failed_requests: number;
     }>;
+  }
+
+  async getIntoAiWaitlist() {
+    const { error, data } = await this.apiSdk.getInstance().post("/ai-waitlist");
+    if (error) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: data.message ?? "Unable to complete request",
+      });
+
+      return false;
+    }
+
+    customToast({
+      type: TOAST_STATUS.SUCCESS,
+      message: data.message,
+    });
+
+    return true;
+  }
+
+  async isUserInAiWaitlist() {
+    const { error, data } = await this.apiSdk.getInstance().get("/ai-waitlist");
+    if (error) return false;
+    return data.data as boolean;
+  }
+
+  async removeFromAiWaitlist() {
+    const { error, data } = await this.apiSdk.getInstance().delete("/ai-waitlist");
+    if (error) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: data.message ?? "Unable to complete request",
+      });
+
+      return false;
+    }
+
+    customToast({
+      type: TOAST_STATUS.SUCCESS,
+      message: data.message,
+    });
+
+    return true;
   }
 
   async logout() {

@@ -1150,11 +1150,11 @@ select {
 .profile-card .single-info {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.1rem;
 }
 
 .profile-card .single-info p {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #888;
 }
 
@@ -1167,8 +1167,8 @@ select {
 }
 
 .profile-card .single-info > div h4 {
-  font-weight: 600;
-  font-size: 0.95rem;
+  font-weight: 500;
+  font-size: 0.9rem;
   white-space: nowrap;
   width: 100%;
   overflow: hidden;

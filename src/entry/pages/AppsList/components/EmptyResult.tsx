@@ -13,7 +13,7 @@ const EmptyResult = () => {
         children={<RegisterApp close={setDisplayModal} />}
       />
 
-      <div className="error-div py-1">
+      <div className="error-div py-1 mb-5">
         <EmptyResultIcon width={265} height={265} />
         <h3>Empty Result</h3>
 
