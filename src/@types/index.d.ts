@@ -218,3 +218,18 @@ type QuyxMetadata = {
   HASH_TTL: number;
   APP_PUBLIC_KEY: string;
 };
+
+type TokenProps = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+type SandboxContextProps = {
+  isLoggedIn: boolean;
+  isMounting: boolean;
+  setTokens?: React.Dispatch<React.SetStateAction<TokenProps | undefined>>;
+  clientId?: string;
+  setClientId?: React.Dispatch<React.SetStateAction<string | undefined>>;
+  response: Object;
+  setResponse?: React.Dispatch<React.SetStateAction<Object>>;
+};

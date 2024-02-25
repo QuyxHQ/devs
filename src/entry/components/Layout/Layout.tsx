@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar, Sidebar } from "..";
+import { useNavigate } from "react-router";
 
 const Layout = ({ children }: { children: React.JSX.Element }) => {
   const [displaySidebar, setDisplaySidebar] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  useEffect(() => setDisplaySidebar(false), [navigate]);
 
   function handleOverlayClick(e: any) {
     if (e.target.classList.contains("overlay")) setDisplaySidebar(false);

@@ -18,7 +18,7 @@
 }
 
 body {
-  background-color: #f1f1f139;
+  background-color: #fbfbfb !important;
 }
 
 a {
@@ -441,6 +441,7 @@ main.body {
 
 .sidebar-content {
   padding: 1rem 0.85rem;
+  padding-bottom: 3rem;
   color: #fff;
 }
 
@@ -1536,4 +1537,186 @@ footer p a {
   50% {
     transform: rotate(360deg);
   }
+}
+
+.methods-box {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.methods-box .single-method {
+  border: 1px solid #ced5e5;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.methods-box .single-method.active {
+  border: 1px solid dodgerblue;
+  color: dodgerblue;
+}
+
+.methods-box .single-method.active span {
+  color: dodgerblue;
+}
+
+.methods-box .single-method span {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #555;
+}
+
+.methods-box .single-method svg {
+  font-size: 1.2rem;
+}
+
+.methods-box h4 {
+  font-weight: 600;
+}
+
+.methods-box p.intro {
+  font-size: 0.7rem;
+  line-height: 160%;
+  font-weight: 400;
+  color: #aaa;
+}
+
+.sandbox-options {
+  border: 1px solid #ced5e5;
+  min-height: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.sandbox-options .footer {
+  border-top: 1px solid #ced5e5;
+  padding: 1rem 1.15rem;
+}
+
+.sandbox-options .footer .status {
+  gap: 0.4rem;
+}
+
+.sandbox-options .footer .status span {
+  width: 0.5rem;
+  display: block;
+  margin-bottom: 0;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+.sandbox-options .footer .status span.red {
+  background-color: crimson;
+}
+
+.sandbox-options .footer .status span.green {
+  background-color: green;
+}
+
+.sandbox-options .footer .status p {
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  text-transform: lowercase;
+  font-weight: 500;
+  border-bottom: 1px solid #000;
+  padding: 0.1rem;
+}
+
+.sandbox-options .footer .c-and-a {
+  gap: 0.65rem;
+}
+
+.sandbox-options .footer .c-and-a > div {
+  gap: 0.25rem;
+}
+
+.sandbox-options .footer .c-and-a > div p {
+  color: #999;
+  font-size: 0.75rem;
+}
+
+.sandbox-options .footer .c-and-a > div p strong {
+  font-weight: 500;
+  color: #555;
+}
+
+.sandbox-options .footer .c-and-a > div svg {
+  font-size: 0.95rem;
+  stroke-width: 1.8;
+}
+
+.sandbox-options .connect-wallet {
+  width: 90%;
+  max-width: 20rem;
+  margin: 0% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 6rem;
+}
+
+.sandbox-options .connect-wallet h2 {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.sandbox-options .connect-wallet p {
+  font-size: 0.9rem;
+  line-height: 200%;
+  margin-bottom: 1.3rem;
+  color: #888;
+}
+
+.sandbox-options .connect-wallet button {
+  width: 11rem;
+}
+
+.sandbox-response {
+  background-color: #fff;
+  border: 1px solid #ced5e5;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.sandbox-response .header {
+  background-color: #ced5e544;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.95rem 1.3rem;
+  border-bottom: 1px solid #ced5e5;
+}
+
+.sandbox-response .header h3 {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.sandbox-response .header > div {
+  border: 1px solid #ced5e5;
+  font-size: 1.2rem;
+  padding: 0.45rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sandbox-response .header svg {
+  stroke-width: 1.8;
+}
+
+.sandbox-response .body {
+  padding: 1.5rem 1.3rem;
+  font-size: 0.9rem;
 }

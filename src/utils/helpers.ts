@@ -55,3 +55,17 @@ export async function copyToClipboard(text: string) {
     });
   }
 }
+
+export function truncateAddress(address?: string) {
+  if (!address) return "null";
+
+  let prefixLength = 3;
+  let suffixLength = 4;
+  if (address.length <= prefixLength + suffixLength) return address;
+
+  const prefix = address.slice(0, prefixLength);
+  const suffix = address.slice(-suffixLength);
+  const truncated = `${prefix}....${suffix}`;
+
+  return truncated;
+}

@@ -25,18 +25,16 @@ export default class Sandbox {
     });
   }
 
-  async login() {
+  async login({
+    address,
+    chainId,
+    signer,
+  }: {
+    address: string;
+    chainId: number;
+    signer: ethers.Signer;
+  }) {
     try {
-      if (!(window as any).ethereum) throw new Error("Metamask wallet not installed");
-
-      const provider = new ethers.providers.Web3Provider((window as any).ethereum);
-      const signer = provider.getSigner();
-      const accounts = await provider.listAccounts();
-      if (accounts.length == 0) throw new Error("No account found");
-
-      const address = accounts[0];
-      const { chainId } = await provider.getNetwork();
-
       const message = new SiweMessage({
         domain: document.location.host,
         address,
