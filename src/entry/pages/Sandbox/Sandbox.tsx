@@ -21,19 +21,38 @@ import {
 } from "./components";
 import { useEffect, useState } from "react";
 import { copyToClipboard, truncateAddress } from "../../../utils/helpers";
-import { LoadingContentOnButton } from "../..";
+import { FormGroup, LoadingContentOnButton } from "../..";
 import { TOAST_STATUS, customToast } from "../../../utils/toast.utils";
 import ReactJson from "react-json-view";
 import { useSandboxStore } from "../../context/SandboxProvider";
+import { api } from "../../../utils/class/api.class";
 
 const Sandbox = () => {
   const { connect, connectors, error, isConnecting } = useConnect();
   const { disconnect } = useDisconnect();
   const { data: accountData } = useAccount();
   const { activeChain } = useNetwork();
-  const { response } = useSandboxStore();
+  const { response, clientId, setClientId, isMounting } = useSandboxStore();
 
   const [selectedMethod, setSelectedMethod] = useState<number>(0);
+  const [_clientId, _setClientId] = useState<string>("");
+  const [appsOptions, setAppsOptions] = useState<{ label: string; value: string }[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    (async function () {
+      if (accountData?.address) {
+        setIsLoading(true);
+        const resp = await api.getAllApps({ page: 1, limit: 1000 });
+        if (!resp.status || !resp.data) return;
+
+        const options: { label: string; value: string }[] = [];
+        resp.data.map((app) => options.push({ label: app.name, value: app.clientID }));
+        setAppsOptions(options);
+        setIsLoading(false);
+      }
+    })();
+  }, [accountData]);
 
   useEffect(() => {
     if (error) customToast({ type: TOAST_STATUS.ERROR, message: error.message });
@@ -121,7 +140,37 @@ const Sandbox = () => {
             <div className="sandbox-options">
               <div className="body">
                 {accountData?.address ? (
-                  methods[selectedMethod].component
+                  clientId ? (
+                    methods[selectedMethod].component
+                  ) : (
+                    <div className="connect-wallet pt-5 mt-3">
+                      <h2>Choose App</h2>
+                      <p>Choose an app to use while interacting with Sandbox</p>
+                      <FormGroup
+                        setter={_setClientId}
+                        getter={_clientId}
+                        inputType="select"
+                        label="App"
+                        displayLabel={false}
+                        options={appsOptions}
+                        displayOthersInSelect={false}
+                        placeholder="-- choose app --"
+                        className="mb-2"
+                      />
+
+                      <button
+                        className="btn blue"
+                        onClick={() => setClientId!(_clientId)}
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <LoadingContentOnButton text="Getting apps.." />
+                        ) : (
+                          "Proceed"
+                        )}
+                      </button>
+                    </div>
+                  )
                 ) : (
                   <div className="connect-wallet">
                     <h2>Connect wallet</h2>

@@ -18,17 +18,6 @@ const SandboxProvider = ({ children }: { children: React.JSX.Element }) => {
   const [sandboxSdk, setSandboxSdk] = useState<Sandbox>();
 
   useEffect(() => {
-    (function () {
-      //# populate the access & refresh tokens
-      const accessToken = localStorage.getItem("");
-      const refreshToken = localStorage.getItem("");
-
-      if (accessToken && refreshToken) setTokens({ accessToken, refreshToken });
-      return;
-    })();
-  }, []);
-
-  useEffect(() => {
     (async function () {
       if (!clientId) return;
 

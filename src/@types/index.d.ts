@@ -36,7 +36,7 @@ type ApiResponse<T> = {
 type ApiPaginationResponse<T> = {
   status: boolean;
   message: string;
-  data: T[];
+  data: T;
   pagination: {
     page: number;
     limit: number;

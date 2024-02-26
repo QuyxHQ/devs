@@ -1306,7 +1306,7 @@ select {
 }
 
 .libs {
-  border-top: 1px solid #ced5e5;
+  border-top: 1px solid #ced5e597;
 }
 
 .libs > h3 {
@@ -1679,8 +1679,9 @@ footer p a {
   color: #888;
 }
 
-.sandbox-options .connect-wallet button {
-  width: 11rem;
+.sandbox-options .connect-wallet button,
+.sandbox-options .connect-wallet select {
+  width: 15rem;
 }
 
 .sandbox-response {
@@ -1719,4 +1720,46 @@ footer p a {
 .sandbox-response .body {
   padding: 1.5rem 1.3rem;
   font-size: 0.9rem;
+  user-select: none;
+}
+
+input::placeholder,
+button {
+  user-select: none;
+}
+
+.metrics-graph {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.8rem;
+  min-height: 19rem;
+  height: 100%;
+}
+
+.metrics-graph h4 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.metrics-graph .legends {
+  gap: 0.85rem;
+}
+
+.metrics-graph .legends > div {
+  gap: 0.5rem;
+}
+
+.metrics-graph .legends p {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #555;
+}
+
+.metrics-graph .legends span {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 4px;
+  background-color: #ccc;
 }

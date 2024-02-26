@@ -68,7 +68,7 @@ export default class Sandbox {
       .getInstance()
       .get(`/cards?limit=${limit}&page=${page}`);
 
-    return data as ApiPaginationResponse<QuyxCard | undefined>;
+    return data as ApiPaginationResponse<QuyxCard[] | undefined>;
   }
 
   async changeImportedCard({ card }: { card: string }) {
@@ -119,7 +119,7 @@ export default class Sandbox {
     const { data, error } = await this.apiSdk.getInstance().get(endpoint);
     if (error) return undefined;
 
-    return data as ApiPaginationResponse<QuyxSDKUser>;
+    return data as ApiPaginationResponse<QuyxSDKUser[]>;
   }
 
   async getSingleUser({ address }: { address: string }) {

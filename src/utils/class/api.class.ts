@@ -258,12 +258,12 @@ class Api {
       .get(`/sdk/users/dev/${app}?limit=${limit}&page=${page}`);
 
     if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxSDKUser>;
+    return data as ApiPaginationResponse<QuyxSDKUser[]>;
   }
 
   async getAllApps({ page, limit }: { page: number; limit: number }) {
     const resp = await this.apiSdk.getInstance().get(`/app?limit=${limit}&page=${page}`);
-    return resp.data as ApiPaginationResponse<QuyxApp | undefined>;
+    return resp.data as ApiPaginationResponse<QuyxApp[] | undefined>;
   }
 
   async searchApps({ q, page, limit }: { q: string; page: number; limit: number }) {
@@ -271,7 +271,7 @@ class Api {
       .getInstance()
       .get(`/app/search?q=${q}&limit=${limit}&page=${page}`);
 
-    return resp.data as ApiPaginationResponse<QuyxApp | undefined>;
+    return resp.data as ApiPaginationResponse<QuyxApp[] | undefined>;
   }
 
   async getSingleApp({ app }: { app: string }) {
@@ -396,7 +396,7 @@ class Api {
     }/${app}?limit=${limit}&page=${page}`;
 
     const resp = await this.apiSdk.getInstance().get(endpoint);
-    return resp.data as ApiPaginationResponse<QuyxLog>;
+    return resp.data as ApiPaginationResponse<QuyxLog[]>;
   }
 
   async getAppHealth({ app, from, to }: { app: string; from: Date; to: Date }) {
@@ -431,7 +431,7 @@ class Api {
   async getRequestHealthCustom({ from, to }: { from: Date; to: Date }) {
     const resp = await this.apiSdk
       .getInstance()
-      .get(`/log/dev/health/custom?from=${from}&to=${to}`);
+      .get(`/log/dev/health/custom?from=${from.toISOString()}&to=${to.toISOString()}`);
 
     return resp.data as ApiResponse<{
       successful_requests: number;

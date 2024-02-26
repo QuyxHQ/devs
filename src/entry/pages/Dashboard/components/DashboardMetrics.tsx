@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { api } from "../../../../utils/class/api.class";
-import { FormGroup, Loader } from "../../..";
+import { Loader } from "../../..";
 import { AiOutlineQuestion } from "react-icons/ai";
+import { RequestHealth } from ".";
+import LineGraph from "./charts/LineGraph";
 
 const MetricsLoader = () => {
   return (
@@ -21,9 +23,6 @@ const EmptyResult = () => {
 };
 
 const DashboardMetrics = () => {
-  //# 1 hr, 24 hrs, 7 days & 30 days (1 | 24 | 168 | 720)
-  const [hourRange, setHourRange] = useState<string>("1");
-
   const [dashMetrics, setDashMetrics] = useState<{
     total_requests: number;
     total_apps: number;
@@ -39,11 +38,6 @@ const DashboardMetrics = () => {
     failed_24: number;
   }>();
 
-  const [requestHealth, setRequestHealth] = useState<{
-    successful_requests: number;
-    failed_requests: number;
-  }>();
-
   useEffect(() => {
     (async function () {
       const [reqGrowth, reqHealth, _dashMetrics] = await Promise.all([
@@ -57,19 +51,6 @@ const DashboardMetrics = () => {
       if (_dashMetrics.status) setDashMetrics(_dashMetrics.data);
     })();
   }, []);
-
-  useEffect(() => {
-    (async function () {
-      setRequestHealth(undefined);
-
-      const to = new Date();
-      const from = new Date();
-      from.setHours(from.getHours() - parseInt(hourRange));
-
-      const resp = await api.getRequestHealthCustom({ from, to });
-      if (resp.status) setRequestHealth(resp.data);
-    })();
-  }, [hourRange]);
 
   return (
     <div className="pb-4">
@@ -103,7 +84,40 @@ const DashboardMetrics = () => {
                     dailyRequestHealth.failed_24 == 0 ? (
                       <EmptyResult />
                     ) : (
-                      "Graph here..."
+                      <div className="metrics-graph">
+                        <h4>Daily Request Stat</h4>
+
+                        <RequestHealth
+                          data={[
+                            {
+                              total:
+                                dailyRequestHealth.success_24 +
+                                dailyRequestHealth.failed_24,
+                              value: dailyRequestHealth.success_24,
+                              fill: "dodgerblue",
+                            },
+                            {
+                              total:
+                                dailyRequestHealth.success_24 +
+                                dailyRequestHealth.failed_24,
+                              value: dailyRequestHealth.failed_24,
+                              fill: "#F87171",
+                            },
+                          ]}
+                        />
+
+                        <div className="legends d-flex align-items-center justify-content-center">
+                          <div className="d-flex align-items-center">
+                            <span style={{ backgroundColor: "dodgerblue" }}></span>
+                            <p>{dailyRequestHealth.success_24} successful</p>
+                          </div>
+
+                          <div className="d-flex align-items-center">
+                            <span style={{ backgroundColor: "#F87171" }}></span>
+                            <p>{dailyRequestHealth.failed_24} failed</p>
+                          </div>
+                        </div>
+                      </div>
                     )
                   ) : (
                     <MetricsLoader />
@@ -118,55 +132,29 @@ const DashboardMetrics = () => {
                     requestGrowth.requests_week_2 == 0 ? (
                       <EmptyResult />
                     ) : (
-                      "Graph here..."
+                      <div className="metrics-graph">
+                        <h4>Weekly Request Growth</h4>
+
+                        <LineGraph />
+
+                        <div className="legends d-flex flex-column align-items-center justify-content-center">
+                          <div className="d-flex align-items-center">
+                            <span style={{ backgroundColor: "#8884d8" }}></span>
+                            <p>This week: {requestGrowth.requests_week_1} requests</p>
+                          </div>
+
+                          <div className="d-flex align-items-center">
+                            <span style={{ backgroundColor: "#82ca9d" }}></span>
+                            <p>Last week: {requestGrowth.requests_week_2} requests</p>
+                          </div>
+                        </div>
+                      </div>
                     )
                   ) : (
                     <MetricsLoader />
                   )}
                 </div>
               </div>
-            </div>
-          </div>
-
-          <div className="col-12">
-            <div className="metrics-box">
-              <div
-                className="d-flex align-items-center justify-content-between"
-                style={{ marginTop: "-0.8rem", gap: "0.6rem" }}
-              >
-                <h4 style={{ fontWeight: 600, fontSize: "1.05rem", lineHeight: "150%" }}>
-                  Request Health
-                </h4>
-
-                <FormGroup
-                  getter={hourRange}
-                  setter={setHourRange}
-                  label="range"
-                  options={[
-                    { label: "Past 1 hr", value: "1" },
-                    { label: "Past 24 hr", value: "24" },
-                    { label: "Past 7 days", value: "168" },
-                    { label: "Past 30 days", value: "720" },
-                  ]}
-                  inputType="select"
-                  displayLabel={false}
-                  displayOthersInSelect={false}
-                />
-              </div>
-              {requestHealth ? (
-                requestHealth.failed_requests == 0 &&
-                requestHealth.successful_requests == 0 ? (
-                  <div className="py-5">
-                    <EmptyResult />
-                  </div>
-                ) : (
-                  "Graph here..."
-                )
-              ) : (
-                <div className="py-5">
-                  <MetricsLoader />
-                </div>
-              )}
             </div>
           </div>
         </div>
