@@ -234,3 +234,26 @@ type SandboxContextProps = {
   response: Object;
   setResponse?: React.Dispatch<React.SetStateAction<Object>>;
 };
+
+type RequestGrowthResponse = {
+  week1: {
+    day1: number;
+    day2: number;
+    day3: number;
+    day4: number;
+    day5: number;
+    day6: number;
+    day7: number;
+  };
+  total_week_1: number;
+  week2: {
+    day1: number;
+    day2: number;
+    day3: number;
+    day4: number;
+    day5: number;
+    day6: number;
+    day7: number;
+  };
+  total_week_2: number;
+};

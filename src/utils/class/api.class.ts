@@ -445,11 +445,7 @@ class Api {
 
   async getRequestGrowth() {
     const resp = await this.apiSdk.getInstance().get(`/log/dev/growth`);
-
-    return resp.data as ApiResponse<{
-      requests_week_1: number;
-      requests_week_2: number;
-    }>;
+    return resp.data as ApiResponse<RequestGrowthResponse>;
   }
 
   async getRequestHealthCustom({ from, to }: { from: Date; to: Date }) {

@@ -28,10 +28,7 @@ const DashboardMetrics = () => {
     total_apps: number;
   }>();
 
-  const [requestGrowth, setRequestGrowth] = useState<{
-    requests_week_1: number;
-    requests_week_2: number;
-  }>();
+  const [requestGrowth, setRequestGrowth] = useState<RequestGrowthResponse>();
 
   const [dailyRequestHealth, setDailyRequestHealth] = useState<{
     success_24: number;
@@ -128,24 +125,23 @@ const DashboardMetrics = () => {
               <div className="w-100">
                 <div className="metrics-box">
                   {requestGrowth ? (
-                    requestGrowth.requests_week_1 == 0 &&
-                    requestGrowth.requests_week_2 == 0 ? (
+                    requestGrowth.total_week_1 == 0 && requestGrowth.total_week_2 == 0 ? (
                       <EmptyResult />
                     ) : (
                       <div className="metrics-graph">
                         <h4>Weekly Request Growth</h4>
 
-                        <LineGraph />
+                        <LineGraph data={requestGrowth} />
 
                         <div className="legends d-flex flex-column align-items-center justify-content-center">
                           <div className="d-flex align-items-center">
                             <span style={{ backgroundColor: "#8884d8" }}></span>
-                            <p>This week: {requestGrowth.requests_week_1} requests</p>
+                            <p>This week: {requestGrowth.total_week_1} requests</p>
                           </div>
 
                           <div className="d-flex align-items-center">
                             <span style={{ backgroundColor: "#82ca9d" }}></span>
-                            <p>Last week: {requestGrowth.requests_week_2} requests</p>
+                            <p>Last week: {requestGrowth.total_week_2} requests</p>
                           </div>
                         </div>
                       </div>
