@@ -1,5 +1,3 @@
-import React from "react";
-
 const LoadingComponent = () => {
   return (
     <div className="py-5 my-5 d-flex align-items-center justify-content-center">
@@ -17,4 +15,4 @@ const LoadingComponent = () => {
   );
 };
 
-export default React.memo(LoadingComponent);
+export default LoadingComponent;

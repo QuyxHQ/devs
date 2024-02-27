@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { api } from "../../../utils/class/api.class";
-import { LoadingComponent } from "../..";
+import { EmptyLogIcon, LoadingComponent } from "../..";
 import { RenderLogs } from "./components";
 
 const SdkLogs = () => {
@@ -15,7 +15,6 @@ const SdkLogs = () => {
       setIsLoading(true);
 
       const resp = await api.getLogs({ page, limit });
-      console.log(resp);
       if (!resp.status) return;
 
       setLogs(resp.data);
@@ -32,7 +31,11 @@ const SdkLogs = () => {
         {isLoading ? (
           <LoadingComponent />
         ) : logs.length == 0 ? (
-          <>Nothing found</>
+          <div className="error-div">
+            <EmptyLogIcon className="mb-0" />
+
+            <h3>no logs yet!</h3>
+          </div>
         ) : (
           <div>
             <RenderLogs

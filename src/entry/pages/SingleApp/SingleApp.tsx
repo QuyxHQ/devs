@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../../utils/class/api.class";
-import { AnchorLink, LoadingComponent, Modal, NotFound } from "../..";
+import { AnchorLink, EmptyLogIcon, LoadingComponent, Modal, NotFound } from "../..";
 import { RenderMetrics, ViewKeys } from "./components";
 import { TbArrowLeft, TbDotsVertical, TbKey } from "react-icons/tb";
 import { AppEditModal } from "../AppsList/components";
@@ -110,22 +110,26 @@ const SingleApp = () => {
       </div>
 
       <div className="col-12 mb-4">
-        <div className="text-and-hr d-flex align-items-center mb-4">
-          <hr />
-          <h2>Logs ({total})</h2>
-        </div>
-
-        {isLoading ? (
-          <LoadingComponent />
+        {logs.length == 0 ? (
+          <div className="error-div">
+            <EmptyLogIcon />
+          </div>
         ) : (
-          <RenderLogs
-            data={logs}
-            limit={limit}
-            setLimit={setLimit}
-            page={page}
-            setPage={setPage}
-            total={total}
-          />
+          <>
+            <div className="text-and-hr d-flex align-items-center mb-4">
+              <hr />
+              <h2>Logs ({total})</h2>
+            </div>
+
+            <RenderLogs
+              data={logs}
+              limit={limit}
+              setLimit={setLimit}
+              page={page}
+              setPage={setPage}
+              total={total}
+            />
+          </>
         )}
       </div>
     </div>
