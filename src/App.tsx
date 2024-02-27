@@ -6,7 +6,6 @@ import {
   Dashboard,
   ForgotPassword,
   Login,
-  Middleware,
   NotFound,
   Profile,
   Register,
@@ -18,6 +17,7 @@ import {
   Sudo,
   Users,
   VerifyEmail,
+  Middleware,
 } from "./entry";
 import { Toaster } from "react-hot-toast";
 

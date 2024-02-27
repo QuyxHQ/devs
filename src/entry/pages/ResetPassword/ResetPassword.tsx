@@ -55,7 +55,7 @@ const ResetPassword = () => {
             <p
               className="title-case mb-2"
               style={{
-                width: "65%",
+                width: "95%",
                 textAlign: "center",
                 lineHeight: "170%",
                 fontSize: "0.9rem",
