@@ -13,6 +13,7 @@ import { AnchorLink, LoadingContentOnButton, Logo } from "..";
 import { useAppStore } from "../../context/AppProvider";
 import { useState } from "react";
 import { api } from "../../../utils/class/api.class";
+import settings from "../../../utils/settings";
 
 const Sidebar = () => {
   const { userInfo } = useAppStore();
@@ -67,7 +68,7 @@ const Sidebar = () => {
       icon: <TbSettings />,
     },
     {
-      to: "//docs.quyx.xyz",
+      to: settings.DOCS_URL,
       title: "Documentation",
       icon: <TbFile />,
     },

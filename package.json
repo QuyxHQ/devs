@@ -13,6 +13,7 @@
     "axios": "^1.6.7",
     "buffer": "^6.0.3",
     "ethers": "^5.7.2",
+    "lodash.debounce": "^4.0.8",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,6 +27,7 @@
     "wagmi": "^0.4.10"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.9",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
     "@types/uuid": "^9.0.8",

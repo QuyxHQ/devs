@@ -1,4 +1,5 @@
 import {
+  TbArrowRight,
   TbChevronLeft,
   TbChevronRight,
   TbExternalLink,
@@ -6,10 +7,12 @@ import {
   TbSearch,
 } from "react-icons/tb";
 import { copyToClipboard, formatDate } from "../../../../utils/helpers";
-import React, { useState } from "react";
-import { AnchorLink, Modal } from "../../..";
+import React, { useEffect, useRef, useState } from "react";
+import { AnchorLink, Loader, Modal } from "../../..";
 import { AppEditModal, RegisterApp } from ".";
 import { VscCopy, VscEye, VscEyeClosed } from "react-icons/vsc";
+import debounce from "lodash.debounce";
+import { api } from "../../../../utils/class/api.class";
 
 const RenderTable = ({
   limit,
@@ -23,6 +26,39 @@ const RenderTable = ({
   const [isMasked, setIsMasked] = useState<boolean>(true);
   const [modalBody, setModalBody] = useState<React.JSX.Element>();
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [displayBox, setDisplayBox] = useState<boolean>(false);
+  const [searchResult, setSearchResult] = useState<QuyxApp[]>();
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const displayBoxRef = useRef<any>(null);
+
+  async function searchApps(q: string) {
+    setIsLoading(true);
+    const { data } = await api.searchApps({ q, page: 1, limit: 50 });
+    setSearchResult(data);
+    setIsLoading(false);
+  }
+
+  const debouncedFetchData = debounce(searchApps, 1500);
+
+  useEffect(() => {
+    if (searchTerm && searchTerm.length > 0) {
+      setIsLoading(true);
+      debouncedFetchData(searchTerm);
+    } else setSearchResult(undefined);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    function handleClickOutside(e: any) {
+      if (displayBoxRef.current && !displayBoxRef.current.contains(e.target)) {
+        setDisplayBox(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   return (
     <>
       <Modal
@@ -33,9 +69,50 @@ const RenderTable = ({
 
       <div className="pt-2">
         <div className="d-flex align-items-center justify-content-between mb-4 table-top">
-          <div className="position-relative search">
-            <input type="text" placeholder="Search..." />
+          <div className="position-relative search" ref={displayBoxRef}>
+            <input
+              type="text"
+              placeholder="Search..."
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onFocus={() => setDisplayBox(true)}
+              value={searchTerm}
+            />
             <TbSearch className="position-absolute" />
+
+            <div
+              className={`search-results position-absolute ${
+                displayBox ? "d-block" : "d-none"
+              }`}
+            >
+              {isLoading ? (
+                <div className="d-flex align-items-center justify-content-center py-5 my-2 my-md-4">
+                  <Loader fill="#aaa" width={20} height={20} />
+                </div>
+              ) : !searchResult ? (
+                <div className="d-flex align-items-center justify-content-center py-5 my-2 my-md-4">
+                  <p className="txt">Start typing....</p>
+                </div>
+              ) : searchResult.length == 0 ? (
+                <div className="d-flex align-items-center justify-content-center py-5 my-2 my-md-4">
+                  <p className="txt">
+                    no app found for <strong>`{searchTerm}`</strong>
+                  </p>
+                </div>
+              ) : (
+                <ul>
+                  {searchResult.map((item, index) => (
+                    <li key={`app-search-result-${index}`}>
+                      <AnchorLink to={`/app/${item._id}`}>
+                        <span>{item.name}</span>
+                        <div>
+                          <TbArrowRight />
+                        </div>
+                      </AnchorLink>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
 
           <button

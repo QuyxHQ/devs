@@ -193,7 +193,7 @@ const Sandbox = () => {
                         displayLabel={false}
                         options={appsOptions}
                         displayOthersInSelect={false}
-                        placeholder="-- choose app --"
+                        placeholder="--choose app--"
                         className="mb-2"
                       />
 

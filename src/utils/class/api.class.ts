@@ -278,7 +278,15 @@ class Api {
     return resp.data as ApiPaginationResponse<QuyxApp[] | undefined>;
   }
 
-  async searchApps({ q, page, limit }: { q: string; page: number; limit: number }) {
+  async searchApps({
+    q,
+    page = 1,
+    limit = 50,
+  }: {
+    q: string;
+    page: number;
+    limit: number;
+  }) {
     const resp = await this.apiSdk
       .getInstance()
       .get(`/app/search?q=${q}&limit=${limit}&page=${page}`);
