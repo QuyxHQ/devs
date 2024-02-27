@@ -265,12 +265,11 @@ class Api {
     page: number;
     limit: number;
   }) {
-    const { data, error } = await this.apiSdk
+    const { data } = await this.apiSdk
       .getInstance()
       .get(`/sdk/users/dev/${app}?limit=${limit}&page=${page}`);
 
-    if (error) return undefined;
-    return data as ApiPaginationResponse<QuyxSDKUser[]>;
+    return data as ApiPaginationResponse<QuyxSDKUser[] | undefined>;
   }
 
   async getAllApps({ page, limit }: { page: number; limit: number }) {
