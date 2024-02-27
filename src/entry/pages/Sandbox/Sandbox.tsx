@@ -2,6 +2,8 @@ import {
   TbCopy,
   TbCurrencyEthereum,
   TbDatabaseImport,
+  TbExternalLink,
+  TbFile,
   TbListDetails,
   TbLogout,
   TbTrash,
@@ -17,22 +19,23 @@ import {
   Import,
   Login,
   Logout,
-  SingleUser,
+  FindUser,
 } from "./components";
 import { useEffect, useState } from "react";
 import { copyToClipboard, truncateAddress } from "../../../utils/helpers";
-import { FormGroup, LoadingContentOnButton } from "../..";
+import { FormGroup, Loader, LoadingContentOnButton } from "../..";
 import { TOAST_STATUS, customToast } from "../../../utils/toast.utils";
 import ReactJson from "react-json-view";
 import { useSandboxStore } from "../../context/SandboxProvider";
 import { api } from "../../../utils/class/api.class";
+import settings from "../../../utils/settings";
 
 const Sandbox = () => {
   const { connect, connectors, error, isConnecting } = useConnect();
   const { disconnect } = useDisconnect();
   const { data: accountData } = useAccount();
   const { activeChain } = useNetwork();
-  const { response, clientId, setClientId, isMounting } = useSandboxStore();
+  const { response, clientId, setClientId, isMounting, isLoggedIn } = useSandboxStore();
 
   const [selectedMethod, setSelectedMethod] = useState<number>(0);
   const [_clientId, _setClientId] = useState<string>("");
@@ -64,42 +67,49 @@ const Sandbox = () => {
       component: <Login />,
       icon: <TbCurrencyEthereum />,
       desc: "Sign in with ethereum",
+      docs: "/#",
     },
     {
-      label: "Current user",
+      label: "User Info",
       component: <Current />,
       icon: <TbUser />,
       desc: "Get's info about logged in user",
+      docs: "/#",
     },
     {
       label: "User Cards",
       component: <Cards />,
       icon: <TbListDetails />,
       desc: "Gets user cards across all chain",
+      docs: "/#",
     },
     {
-      label: "Import/Change Card",
+      label: "Import Card",
       component: <Import />,
       icon: <TbDatabaseImport />,
-      desc: "Import card or change current card",
+      desc: "Update user preferred card",
+      docs: "/#",
     },
     {
       label: "Find User",
-      component: <SingleUser />,
+      component: <FindUser />,
       icon: <TbUserSearch />,
       desc: "Finds user from address",
+      docs: "/#",
     },
     {
       label: "Delete Account",
       component: <DeleteAccount />,
       icon: <TbTrash />,
       desc: "Delete account info",
+      docs: "/#",
     },
     {
       label: "Logout",
       component: <Logout />,
       icon: <TbLogout />,
       desc: "Destroys existing session",
+      docs: "/#",
     },
   ];
 
@@ -118,11 +128,13 @@ const Sandbox = () => {
         <div className="row g-4">
           <div className="col-12 col-md-5 col-xl-3">
             <div className="methods-box">
-              {methods.map((method, index) => (
-                <div key={`sandbox-method-${index}`}>
+              {methods.slice(1, methods.length).map((method, index) => (
+                <div key={`sandbox-method-${index + 1}`}>
                   <div
-                    onClick={() => setSelectedMethod(index)}
-                    className={`single-method ${selectedMethod == index ? "active" : ""}`}
+                    onClick={() => setSelectedMethod(index + 1)}
+                    className={`single-method ${
+                      selectedMethod == index + 1 ? "active" : ""
+                    }`}
                   >
                     <div>{method.icon}</div>
 
@@ -141,7 +153,34 @@ const Sandbox = () => {
               <div className="body">
                 {accountData?.address ? (
                   clientId ? (
-                    methods[selectedMethod].component
+                    isMounting ? (
+                      <div className="connect-wallet mt-5">
+                        <Loader fill="#bbb" />
+                      </div>
+                    ) : (
+                      <div>
+                        {!isLoggedIn && selectedMethod !== 0
+                          ? methods[0].component
+                          : methods[selectedMethod].component}
+
+                        <div className="docs-btn">
+                          <a
+                            href={`${settings.DOCS_URL}${
+                              !isLoggedIn && selectedMethod !== 0
+                                ? methods[0].docs
+                                : methods[selectedMethod].docs
+                            }`}
+                            target="_blank"
+                          >
+                            <button>
+                              <TbFile />
+                              <span>View docs</span>
+                              <TbExternalLink />
+                            </button>
+                          </a>
+                        </div>
+                      </div>
+                    )
                   ) : (
                     <div className="connect-wallet pt-5 mt-3">
                       <h2>Choose App</h2>

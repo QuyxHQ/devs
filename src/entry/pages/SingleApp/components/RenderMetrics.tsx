@@ -21,7 +21,7 @@ const RenderMetrics = ({ data, app }: { data?: AppMetrics; app: string }) => {
 
       <div className="col-12 col-md-6 col-xl-4">
         <div className="metrics-box">
-          <h3>{data ? data.avg_response_time_min5 / 1000 : "--"}s</h3>
+          <h3>{data ? (data.avg_response_time_min5 / 1000).toFixed(3) : "--"}s</h3>
           <p>Avg. Response Time (last 5 min)</p>
         </div>
       </div>

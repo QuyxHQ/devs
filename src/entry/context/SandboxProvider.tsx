@@ -24,8 +24,10 @@ const SandboxProvider = ({ children }: { children: React.JSX.Element }) => {
       setIsMounting(true);
 
       const sdk = new Sandbox(clientId, tokens);
-      const info = await sdk.currentSdkUser();
-      setIsLoggedIn(info ? true : false);
+      if (tokens) {
+        const info = await sdk.currentSdkUser();
+        setIsLoggedIn(info ? true : false);
+      } else setIsLoggedIn(false);
 
       setSandboxSdk(sdk);
       setIsMounting(false);

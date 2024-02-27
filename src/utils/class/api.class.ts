@@ -11,6 +11,18 @@ class Api {
     return data.data as QuyxMetadata;
   }
 
+  async getNonce() {
+    const resp = await this.apiSdk.getInstance().get("/session/nonce");
+    return resp.data as ApiResponse<
+      | {
+          nonce: string;
+          issuedAt: string;
+          expirationTime: string;
+        }
+      | undefined
+    >;
+  }
+
   async login({ email, password }: LoginProps) {
     const { data, error } = await this.apiSdk
       .getInstance()

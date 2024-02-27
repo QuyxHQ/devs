@@ -1,14 +1,18 @@
 import { SiweMessage } from "siwe";
 import ApiHttpClient from "../api.utils";
 import settings from "../settings";
-import { v4 as uuidv4 } from "uuid";
-import { ethers } from "ethers";
 import { TOAST_STATUS, customToast } from "../toast.utils";
+import { api } from "./api.class";
+import axios, { AxiosError } from "axios";
 
 export default class Sandbox {
   private apiSdk: ApiHttpClient;
+  private accessToken?: string;
+  private refreshToken?: string;
 
   constructor(clientId: string, tokens?: { accessToken: string; refreshToken: string }) {
+    this.accessToken = tokens?.accessToken;
+    this.refreshToken = tokens?.refreshToken;
     this.apiSdk = new ApiHttpClient({
       baseURL: `${settings.ENDPOINT_URL}/sdk`,
       headers: {
@@ -25,42 +29,51 @@ export default class Sandbox {
     });
   }
 
-  async login({
-    address,
-    chainId,
-    signer,
-  }: {
-    address: string;
-    chainId: number;
-    signer: ethers.Signer;
-  }) {
-    try {
-      const message = new SiweMessage({
-        domain: document.location.host,
-        address,
-        chainId,
-        uri: document.location.origin,
-        version: "1",
-        statement: `Welcome to Quyx Developers Sandbox!
-        Sign this message to verify ownership of wallet in order to continue`,
-        nonce: uuidv4(),
+  async init({ address, chainId }: { address: string; chainId: number }) {
+    const { data } = await api.getNonce();
+    if (!data) {
+      customToast({
+        type: TOAST_STATUS.ERROR,
+        message: "unable to retrieve nonce",
       });
 
-      const signature = await signer.signMessage(message.prepareMessage());
-      const resp = await this.apiSdk
-        .getInstance()
-        .post("/login", { message, address, signature });
-
-      return resp;
-    } catch (e: any) {
-      throw new Error(e);
+      return undefined;
     }
+
+    const message = new SiweMessage({
+      domain: document.location.host,
+      address,
+      chainId,
+      uri: document.location.origin,
+      version: "1",
+      statement: `Welcome to Quyx Developers Sandbox! Sign this message to verify ownership of wallet in order to continue`,
+      nonce: data.nonce,
+      expirationTime: data.expirationTime,
+      issuedAt: data.issuedAt,
+    });
+
+    return message;
+  }
+
+  async login({
+    address,
+    message,
+    signature,
+  }: {
+    address: string;
+    message: SiweMessage;
+    signature: string;
+  }) {
+    const resp = await this.apiSdk
+      .getInstance()
+      .post("/login", { message, address, signature });
+
+    return resp;
   }
 
   async currentSdkUser() {
-    const { data, error } = await this.apiSdk.getInstance().get("/current");
-    if (error) return undefined;
-    return data.data as QuyxSDKUser;
+    const resp = await this.apiSdk.getInstance().get("/current");
+    return resp;
   }
 
   async getUserCards({ limit, page }: { limit: number; page: number }) {
@@ -72,42 +85,38 @@ export default class Sandbox {
   }
 
   async changeImportedCard({ card }: { card: string }) {
-    const { data, error } = await this.apiSdk.getInstance().put(`/change/${card}`);
+    const resp = await this.apiSdk.getInstance().put(`/change/${card}`);
 
-    if (error) {
+    if (resp.error) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: data.message ?? "Unable to complete request",
+        message: resp.data.message ?? "Unable to complete request",
       });
-
-      return false;
+    } else {
+      customToast({
+        type: TOAST_STATUS.SUCCESS,
+        message: resp.data.message,
+      });
     }
 
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message,
-    });
-
-    return true;
+    return resp;
   }
 
   async disconnect() {
-    const { data, error } = await this.apiSdk.getInstance().delete("/disconnect");
-    if (error) {
+    const resp = await this.apiSdk.getInstance().delete("/disconnect");
+    if (resp.error) {
       customToast({
         type: TOAST_STATUS.ERROR,
-        message: data.message ?? "Unable to complete request",
+        message: resp.data.message ?? "Unable to complete request",
       });
-
-      return false;
+    } else {
+      customToast({
+        type: TOAST_STATUS.SUCCESS,
+        message: resp.data.message,
+      });
     }
 
-    customToast({
-      type: TOAST_STATUS.SUCCESS,
-      message: data.message,
-    });
-
-    return true;
+    return resp;
   }
 
   async allUsers(options?: { limit: number; page: number }) {
@@ -123,10 +132,34 @@ export default class Sandbox {
   }
 
   async getSingleUser({ address }: { address: string }) {
-    const { data, error } = await this.apiSdk
-      .getInstance()
-      .get(`/user/single/${address}`);
-    if (error) return undefined;
-    return data.data as QuyxSDKUser;
+    const resp = await this.apiSdk.getInstance().get(`/user/single/${address}`);
+    return resp;
+  }
+
+  async logout() {
+    try {
+      const { data } = await axios.delete(`${settings.ENDPOINT_URL}/session`, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.accessToken}`,
+          "X-Refresh": this.refreshToken,
+        },
+      });
+
+      return { data, error: false };
+    } catch (e: any) {
+      if (e && e instanceof AxiosError) {
+        return {
+          error: true,
+          data: e.response?.data,
+        };
+      }
+
+      return {
+        error: true,
+        data: undefined,
+      };
+    }
   }
 }

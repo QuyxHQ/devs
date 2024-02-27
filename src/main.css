@@ -1597,6 +1597,30 @@ footer p a {
   border-radius: 10px;
 }
 
+.sandbox-options .body .docs-btn {
+  padding: 0 1.2rem;
+  padding-bottom: 1rem;
+  display: flex;
+}
+
+.sandbox-options .body .docs-btn button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: none;
+  background-color: #ced5e51e;
+  border: 1px solid #ced5e5;
+  padding: 1rem 0.8rem;
+  border-radius: 8px;
+}
+
+.sandbox-options .body .docs-btn button svg {
+  stroke-width: 1.5;
+  font-size: 1.1rem;
+}
+
 .sandbox-options .footer {
   border-top: 1px solid #ced5e5;
   padding: 1rem 1.15rem;
@@ -1721,6 +1745,7 @@ footer p a {
   padding: 1.5rem 1.3rem;
   font-size: 0.9rem;
   user-select: none;
+  word-break: break-all;
 }
 
 input::placeholder,
@@ -1762,4 +1787,59 @@ button {
   height: 0.8rem;
   border-radius: 4px;
   background-color: #ccc;
+}
+
+.sandbox-methods-box {
+  padding: 2.5rem 1.45rem;
+  min-height: 18.8rem;
+}
+
+.sandbox-methods-box > div {
+  width: 97%;
+  max-width: 25rem;
+}
+
+.sandbox-methods-box h3.head {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  font-size: 1.4rem;
+  line-height: 160%;
+}
+
+.sandbox-methods-box p.intro {
+  font-size: 0.8rem;
+  line-height: 200%;
+  color: #888;
+  margin-bottom: 1.35rem;
+  font-weight: 300;
+}
+
+.sandbox-methods-box p.intro strong {
+  font-weight: 500;
+  color: #000;
+  border-bottom: 1.2px solid #000;
+}
+
+.sandbox-methods-box p.link {
+  font-size: 0.7rem;
+  color: #888;
+  font-weight: 300;
+}
+
+.sandbox-methods-box p.link a {
+  font-weight: 400;
+  color: blue;
+  border-bottom: 1px solid blue;
+}
+
+.sandbox-methods-box .warning {
+  background-color: rgba(220, 20, 60, 0.07);
+  border: 0.9px solid crimson;
+  color: crimson;
+  padding: 0.8rem;
+  gap: 1rem;
+  border-radius: 6px;
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin-bottom: 1.6rem;
 }
