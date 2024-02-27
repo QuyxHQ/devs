@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../../utils/class/api.class";
 import { AnchorLink, LoadingComponent, Modal, NotFound } from "../..";
-import { RenderLog, RenderMetrics, ViewKeys } from "./components";
+import { RenderMetrics, ViewKeys } from "./components";
 import { TbArrowLeft, TbDotsVertical, TbKey } from "react-icons/tb";
 import { AppEditModal } from "../AppsList/components";
+import { RenderLogs } from "../SdkLogs/components";
 
 const SingleApp = () => {
   const { app: id } = useParams() as { app: string };
@@ -20,7 +21,6 @@ const SingleApp = () => {
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [total, setTotal] = useState<number>(0);
-  const [status, setStatus] = useState<"failed" | "successful">();
 
   //# for modal
   const [displayModal, setDisplayModal] = useState<boolean>(false);
@@ -37,18 +37,17 @@ const SingleApp = () => {
         getMetrics(resp._id);
         getLogs(resp._id);
       }
-
-      setIsLoading(false);
     })();
   }, [id]);
 
   async function getLogs(app: string) {
-    const resp = await api.getAppLogs({ app, status, limit, page });
+    const resp = await api.getAppLogs({ app, limit, page });
     if (resp.status) {
       setLogs(resp.data);
       setTotal(resp.pagination.total);
-      setIsLoading(false);
     }
+
+    setIsLoading(false);
   }
 
   async function getMetrics(app: string) {
@@ -111,16 +110,23 @@ const SingleApp = () => {
       </div>
 
       <div className="col-12 mb-4">
-        <RenderLog
-          data={logs}
-          limit={limit}
-          setLimit={setLimit}
-          page={page}
-          setPage={setPage}
-          total={total}
-          status={status}
-          setStatus={setStatus}
-        />
+        <div className="text-and-hr d-flex align-items-center mb-4">
+          <hr />
+          <h2>Logs ({total})</h2>
+        </div>
+
+        {isLoading ? (
+          <LoadingComponent />
+        ) : (
+          <RenderLogs
+            data={logs}
+            limit={limit}
+            setLimit={setLimit}
+            page={page}
+            setPage={setPage}
+            total={total}
+          />
+        )}
       </div>
     </div>
   );

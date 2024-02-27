@@ -400,6 +400,11 @@ class Api {
     return resp.data as ApiResponse<AppMetrics | undefined>;
   }
 
+  async getLogs({ limit, page }: { limit: number; page: number }) {
+    const resp = await this.apiSdk.getInstance().get(`/log?limit=${limit}&page=${page}`);
+    return resp.data as ApiPaginationResponse<QuyxLog[]>;
+  }
+
   async getAppLogs({
     app,
     status,

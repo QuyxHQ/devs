@@ -1906,3 +1906,69 @@ button {
   font-size: 0.9rem;
   margin-bottom: 1.6rem;
 }
+
+.log-tbl .log {
+  border: 1px solid #ced5e5b8;
+  padding: 0.9rem;
+  border-radius: 7px;
+  max-width: 20rem;
+  background-color: #00000004;
+  font-size: 0.8rem;
+  overflow-x: auto;
+}
+
+.log-tbl td {
+  font-size: 0.85rem;
+}
+
+.log-tbl td strong.route {
+  width: 100%;
+  max-width: 10rem;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #000;
+}
+
+.log-tbl td .green {
+  color: green;
+  font-weight: 600;
+}
+
+.log-tbl .stat {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  border: 0.9px solid #46cd92;
+  background-color: #46cd9210;
+  color: green;
+  width: max-content;
+  padding: 0.45rem 0.8rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.log-tbl .stat.failed {
+  border: 0.9px solid crimson;
+  background-color: rgba(220, 20, 60, 0.056);
+  color: crimson;
+}
+
+.text-and-hr {
+  gap: 0.8rem;
+}
+
+.text-and-hr h2 {
+  font-weight: 600;
+}
+
+.text-and-hr hr {
+  width: 4rem;
+  height: 1px;
+  border: none;
+  background-color: #ccc;
+}

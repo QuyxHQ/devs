@@ -111,12 +111,13 @@ type QuyxCard = Base & {
 };
 
 type QuyxLog = Base & {
-  app: string;
+  app: Pick<QuyxApp, "isActive" | "_id" | "name">;
   dev: string;
   status: "failed" | "successful";
   log: string | null;
   route: string;
   responseTime: number;
+  date: string;
 };
 
 type Base = {

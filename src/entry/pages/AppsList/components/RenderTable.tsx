@@ -144,7 +144,7 @@ const RenderTable = ({
                 <tr key={`table-row-${index}-${item._id}`}>
                   <td>
                     <AnchorLink to={`/app/${item._id}`}>
-                      {page == 1 ? 1 + index : limit * page + index}
+                      {page == 1 ? 1 + index : limit * (page - 1) + index + 1}
                     </AnchorLink>
                   </td>
 
@@ -225,8 +225,8 @@ const RenderTable = ({
           </div>
 
           <div className="paging">
-            {page == 1 ? page : limit * page}&nbsp;-&nbsp;
-            {total < limit ? total : page == 1 ? limit : limit * page + limit}
+            {page == 1 ? page : (page - 1) * limit + 1}&nbsp;-&nbsp;
+            {total < limit ? total : page == 1 ? limit : limit * (page - 1) + limit}
             &nbsp;of&nbsp;{total}
           </div>
 
