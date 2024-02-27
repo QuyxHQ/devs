@@ -1285,18 +1285,6 @@ select {
   font-size: 0.8rem;
 }
 
-.doodles-bg {
-  background-color: #fff;
-  border: 0.85px solid #ced5e5;
-  background-image: url("/doodles.svg");
-  width: 100%;
-  height: 100%;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .complete-onboarding {
   border: 1px solid #ced5e5bc;
   background-color: rgba(218, 165, 32, 0.03);
