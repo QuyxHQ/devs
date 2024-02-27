@@ -1,4 +1,4 @@
-import { TbMenu2, TbBrandGithub, TbSearch, TbSlash } from "react-icons/tb";
+import { TbMenu2, TbBrandGithub } from "react-icons/tb";
 import { AnchorLink, Logo } from "..";
 import { useAppStore } from "../../context/AppProvider";
 import { getInitials } from "../../../utils/helpers";
@@ -14,7 +14,7 @@ const Navbar = ({ setDisplaySidebar }: LayoutDependantsProps) => {
             <span className="tag">BETA</span>
             <span>Tell us what you feel about Quyx!</span>
           </span>
-          <a href="https://google.com" target="_blank">
+          <a href="#" target="_blank">
             Fill out this form.
           </a>
         </p>
@@ -36,17 +36,17 @@ const Navbar = ({ setDisplaySidebar }: LayoutDependantsProps) => {
         </div>
 
         <div className="d-none d-md-flex nav-search position-relative">
-          <TbSearch size={20} strokeWidth={1.5} className="search position-absolute" />
+          {/* <TbSearch size={20} strokeWidth={1.5} className="search position-absolute" />
           <input type="text" placeholder="Search" />
           <div className="slash position-absolute">
             <TbSlash size={20} />
-          </div>
+          </div> */}
         </div>
 
         <div className="d-flex align-items-center nav-right">
-          <div className="d-flex d-md-none">
+          {/* <div className="d-flex d-md-none">
             <TbSearch size={22} />
-          </div>
+          </div> */}
 
           <a href="https://github.com/QuyxHQ" target="_blank">
             <div className="d-flex align-items-center github px-md-2">
