@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { FormGroup, LoadingContentOnButton, TagsInput } from "../../..";
 import { TbChevronDown, TbChevronUp } from "react-icons/tb";
 import { api } from "../../../../utils/class/api.class";
@@ -6,7 +6,7 @@ import { useAppStore } from "../../../context/AppProvider";
 
 const AppEditModal = ({
   close,
-  data,
+  data: parsedData,
 }: {
   data: QuyxApp;
   close: (value: boolean) => void;
@@ -14,25 +14,31 @@ const AppEditModal = ({
   const { refresh } = useAppStore();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [id, setId] = useState<string>(data._id);
-  const [name, setName] = useState<string>(data.name);
-  const [description, setDescription] = useState<string>(data.description);
+  const [id, setId] = useState<string>("");
+  const [name, setName] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+  const [allowedDomains, setAllowedDomains] = useState<string>("");
+  const [allowedBundleIDs, setAllowedBundleIDs] = useState<string>("");
+  const [whitelistedAddresses, setWhitelistedAddresses] = useState<string>("");
+  const [blacklistedAddresses, setBlacklistedAddresses] = useState<string>("");
 
-  const [allowedDomains, setAllowedDomains] = useState<string>(
-    data.allowedDomains ? data.allowedDomains.join(",") : ""
-  );
-
-  const [allowedBundleIDs, setAllowedBundleIDs] = useState<string>(
-    data.allowedBundleIDs ? data.allowedBundleIDs.join(",") : ""
-  );
-
-  const [whitelistedAddresses, setWhitelistedAddresses] = useState<string>(
-    data.whitelistedAddresses ? data.whitelistedAddresses.join(",") : ""
-  );
-
-  const [blacklistedAddresses, setBlacklistedAddresses] = useState<string>(
-    data.blacklistedAddresses ? data.blacklistedAddresses.join(",") : ""
-  );
+  useEffect(() => {
+    setId(parsedData._id);
+    setName(parsedData.name);
+    setDescription(parsedData.description);
+    setAllowedDomains(
+      parsedData.allowedDomains ? parsedData.allowedDomains.join(",") : ""
+    );
+    setAllowedBundleIDs(
+      parsedData.allowedBundleIDs ? parsedData.allowedBundleIDs.join(",") : ""
+    );
+    setWhitelistedAddresses(
+      parsedData.whitelistedAddresses ? parsedData.whitelistedAddresses.join(",") : ""
+    );
+    setBlacklistedAddresses(
+      parsedData.blacklistedAddresses ? parsedData.blacklistedAddresses.join(",") : ""
+    );
+  }, [parsedData]);
 
   //# for accordion
   const [openedIndex, setOpenedIndex] = useState<number>(0);
@@ -71,7 +77,7 @@ const AppEditModal = ({
     setIsLoading(true);
 
     const resp = await api.editApp({
-      app: data._id,
+      app: id,
       name,
       description,
       whitelistedAddresses: null,
@@ -93,7 +99,7 @@ const AppEditModal = ({
     if (!confirm("Are you sure you want to delete this app?!")) return;
     setIsLoading(true);
 
-    const resp = await api.deleteApp({ app: data._id });
+    const resp = await api.deleteApp({ app: id });
     if (resp) {
       refresh(); //# internal refresh
       close(false); //# close the modal
@@ -337,4 +343,4 @@ const AddressesAccessComponent = ({
   );
 };
 
-export default React.memo(AppEditModal);
+export default AppEditModal;

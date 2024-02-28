@@ -7,7 +7,7 @@ import {
   TbSearch,
 } from "react-icons/tb";
 import { copyToClipboard, formatDate } from "../../../../utils/helpers";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnchorLink, Loader, Modal } from "../../..";
 import { AppEditModal, RegisterApp } from ".";
 import { VscCopy, VscEye, VscEyeClosed } from "react-icons/vsc";
@@ -253,4 +253,4 @@ const RenderTable = ({
   );
 };
 
-export default React.memo(RenderTable);
+export default RenderTable;
