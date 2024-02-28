@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import App from "./App.tsx";
 import AppProvider from "./entry/context/AppProvider.tsx";
 import { WagmiConfig, createClient, defaultChains, configureChains } from "wagmi";
@@ -26,7 +26,7 @@ const client = createClient({
   webSocketProvider,
 });
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.render(
   <React.StrictMode>
     <WagmiConfig client={client}>
       <AppProvider>
@@ -35,5 +35,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </SandboxProvider>
       </AppProvider>
     </WagmiConfig>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById("root")!
 );
