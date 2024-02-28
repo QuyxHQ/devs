@@ -4,6 +4,7 @@ import { api } from "../../../utils/class/api.class";
 import { FormGroup } from "../..";
 import { useAppStore } from "../../context/AppProvider";
 import { useNavigate } from "react-router";
+import { dateUTC } from "../../../utils/helpers";
 
 const Settings = () => {
   const { userInfo, metadata } = useAppStore();
@@ -21,9 +22,10 @@ const Settings = () => {
     (function () {
       if (!userInfo || !metadata) return;
       if (!userInfo.verifiedPasswordLastOn) return navigate("/sudo");
+
       if (
-        new Date(userInfo.verifiedPasswordLastOn).getTime() + metadata.SUDO_TTL <
-        Date.now()
+        dateUTC(userInfo.verifiedPasswordLastOn).getTime() + metadata.SUDO_TTL <
+        dateUTC().getTime()
       ) {
         return navigate("/sudo");
       }

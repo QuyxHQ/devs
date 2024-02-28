@@ -3,6 +3,7 @@ import { Logo, FormGroup, AnchorLink, LoadingContentOnButton } from "../..";
 import { api } from "../../../utils/class/api.class";
 import { useAppStore } from "../../context/AppProvider";
 import { useNavigate } from "react-router-dom";
+import { dateUTC } from "../../../utils/helpers";
 
 const Sudo = () => {
   const [password, setPassword] = useState<string>("");
@@ -16,8 +17,8 @@ const Sudo = () => {
       if (!userInfo || !metadata) return;
       if (!userInfo.verifiedPasswordLastOn) return;
       if (
-        new Date(userInfo.verifiedPasswordLastOn).getTime() + metadata.SUDO_TTL >
-        Date.now()
+        dateUTC(userInfo.verifiedPasswordLastOn).getTime() + metadata.SUDO_TTL >
+        dateUTC().getTime()
       ) {
         return navigate("/settings");
       }
