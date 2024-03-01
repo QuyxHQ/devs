@@ -99,7 +99,7 @@ type QuyxCard = Base & {
   username: string;
   pfp: string;
   bio: string;
-  description: stirng | null;
+  description: string | null;
   isForSale: boolean;
   isAuction: boolean | null;
   listingPrice: number | null;

@@ -2,44 +2,45 @@ import {
   TbBrandTypescript,
   TbBrandReact,
   TbBrandReactNative,
-  TbBrandUnity,
   TbArrowRight,
   TbTools,
+  TbBrandNodejs,
 } from "react-icons/tb";
+import settings from "../../../../utils/settings";
 
 const Libraries = () => {
   const libraries = [
     {
-      name: "quyx-ts",
+      name: "@quyx/fetch",
       platform: "TypeScript",
       isComingSoon: false,
-      icon: <TbBrandTypescript stroke="#1976D2" size={65} strokeWidth={1} />,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      url: "#",
+      icon: <TbBrandNodejs stroke="goldenrod" size={65} strokeWidth={1} />,
+      text: "Class wrapper built around axios. Built to make communication with Quyx's endpoint easier and more simplified",
+      url: `${settings.DOCS_URL}/sdks/fetch`,
     },
     {
-      name: "quyx-react",
+      name: "@quyx/express",
+      platform: "Express",
+      isComingSoon: false,
+      icon: <TbBrandTypescript stroke="dodgerblue" size={65} strokeWidth={1} />,
+      text: "nodeJS library for express web applications. Works by us injecting our methods into express default `req` object",
+      url: `${settings.DOCS_URL}/sdks/express`,
+    },
+    {
+      name: "@quyx/react",
       platform: "React",
       isComingSoon: true,
       icon: <TbBrandReact stroke="#61DAFB" size={65} strokeWidth={1} />,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      url: "#",
+      text: "xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx",
+      url: `${settings.DOCS_URL}/sdks/react`,
     },
     {
-      name: "quyx-react-native",
+      name: "@quyx/react-native",
       platform: "React Native",
       isComingSoon: true,
       icon: <TbBrandReactNative stroke="#61DAFB" size={65} strokeWidth={1} />,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      url: "#",
-    },
-    {
-      name: "#### ### #",
-      platform: "Unity",
-      isComingSoon: true,
-      icon: <TbBrandUnity size={65} strokeWidth={1} stroke="#aaa" />,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      url: "#",
+      text: "xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx",
+      url: `${settings.DOCS_URL}/sdks/react-native`,
     },
   ];
 
@@ -59,12 +60,7 @@ const Libraries = () => {
                     <h4>{lib.name}</h4>
                     {lib.isComingSoon ? <span className="pill">coming soon</span> : null}
 
-                    <p className="text">{lib.text}</p>
-
-                    <p className="platform">
-                      <strong>Platform:</strong>&nbsp;
-                      <span>{lib.platform}</span>
-                    </p>
+                    <p className="text mb-3">{lib.text}</p>
                   </div>
 
                   <p>
