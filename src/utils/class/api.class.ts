@@ -306,10 +306,14 @@ class Api {
     blacklistedAddresses,
     allowedBundleIDs,
     allowedDomains,
+    url,
+    webhook,
   }: RegisterAppProps) {
     const { data, error } = await this.apiSdk.getInstance().post(`/app`, {
       name,
+      url,
       description,
+      webhook,
       whitelistedAddresses,
       blacklistedAddresses,
       allowedBundleIDs,
@@ -341,10 +345,14 @@ class Api {
     blacklistedAddresses,
     allowedBundleIDs,
     allowedDomains,
+    url,
+    webhook,
   }: RegisterAppProps & { app: string }) {
     const { data, error } = await this.apiSdk.getInstance().put(`/app/${app}`, {
       name,
+      url,
       description,
+      webhook,
       whitelistedAddresses,
       blacklistedAddresses,
       allowedBundleIDs,

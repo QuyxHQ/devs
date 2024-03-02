@@ -7,6 +7,7 @@ const RegisterApp = ({ close }: { close: (val: boolean) => void }) => {
   const { refresh } = useAppStore();
 
   const [name, setName] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [allowedDomains, setAllowedDomains] = useState<string>("");
   const [allowedBundleIDs, setAllowedBundleIDs] = useState<string>("");
@@ -20,7 +21,9 @@ const RegisterApp = ({ close }: { close: (val: boolean) => void }) => {
 
     const resp = await api.addApp({
       name,
+      url: url,
       description,
+      webhook: null,
       whitelistedAddresses: null,
       blacklistedAddresses: null,
       allowedBundleIDs: allowedBundleIDs.length == 0 ? null : allowedBundleIDs.split(","),
@@ -49,6 +52,17 @@ const RegisterApp = ({ close }: { close: (val: boolean) => void }) => {
               inputType="text"
               placeholder="e.g. SocialFi Integration"
               className="mb-4"
+              required
+            />
+
+            <FormGroup
+              setter={setUrl}
+              getter={url}
+              label="App URL"
+              inputType="url"
+              required
+              placeholder="e.g. https://domain.ltd"
+              className="mb-4"
             />
 
             <FormGroup
@@ -58,6 +72,7 @@ const RegisterApp = ({ close }: { close: (val: boolean) => void }) => {
               inputType="textarea"
               placeholder="Short description of what this app is about"
               rows={5}
+              required
             />
           </div>
         </div>

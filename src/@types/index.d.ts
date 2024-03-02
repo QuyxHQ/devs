@@ -20,7 +20,9 @@ type ChnagePasswordProps = {
 
 type RegisterAppProps = {
   name: string;
+  url: string;
   description: string;
+  webhook: string | null;
   blacklistedAddresses: string[] | null;
   whitelistedAddresses: string[] | null;
   allowedDomains: string[] | null;
@@ -74,7 +76,9 @@ type QuyxApp = Base & {
   clientID: string;
   owner: string;
   name: string;
+  url: string;
   description: string;
+  webhook: string | null;
   allowedDomains: string[] | null;
   allowedBundleIDs: string[] | null;
   blacklistedAddresses: string[] | null;
@@ -92,22 +96,14 @@ type QuyxSDKUser = Base & {
 type QuyxCard = Base & {
   owner: string;
   identifier: null | number;
-  version: null | number;
+  version: number;
   chainId: string;
-  mintedBy: string;
-  tempToken: string;
   username: string;
   pfp: string;
   bio: string;
-  description: string | null;
-  isForSale: boolean;
-  isAuction: boolean | null;
-  listingPrice: number | null;
-  maxNumberOfBids: number | null;
-  auctionEnds: Date | null;
-  tags: string[] | null;
+  description: string;
   isFlagged: boolean;
-  isDeleted: boolean;
+  isForSale: boolean;
 };
 
 type QuyxLog = Base & {

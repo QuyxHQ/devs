@@ -16,7 +16,9 @@ const AppEditModal = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [id, setId] = useState<string>("");
   const [name, setName] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [webhook, setWebhook] = useState<string>("");
   const [allowedDomains, setAllowedDomains] = useState<string>("");
   const [allowedBundleIDs, setAllowedBundleIDs] = useState<string>("");
   const [whitelistedAddresses, setWhitelistedAddresses] = useState<string>("");
@@ -25,7 +27,9 @@ const AppEditModal = ({
   useEffect(() => {
     setId(parsedData._id);
     setName(parsedData.name);
+    setUrl(parsedData.url);
     setDescription(parsedData.description);
+    setWebhook(parsedData.webhook || "");
     setAllowedDomains(
       parsedData.allowedDomains ? parsedData.allowedDomains.join(",") : ""
     );
@@ -79,7 +83,9 @@ const AppEditModal = ({
     const resp = await api.editApp({
       app: id,
       name,
+      url,
       description,
+      webhook,
       whitelistedAddresses: null,
       blacklistedAddresses: null,
       allowedBundleIDs: allowedBundleIDs.length == 0 ? null : allowedBundleIDs.split(","),
@@ -131,11 +137,36 @@ const AppEditModal = ({
               inputType="text"
               required
               placeholder="e.g. SocialFi Integration"
+              className="mb-4"
+            />
+
+            <FormGroup
+              setter={setUrl}
+              getter={url}
+              label="App URL"
+              inputType="url"
+              required
+              placeholder="e.g. https://domain.ltd"
             />
           </div>
 
           <div className="col-12 col-md-5">
             <div className="access-integrations ps-md-4">
+              <FormGroup
+                setter={setWebhook}
+                getter={webhook}
+                label="Webhook URL (optional)"
+                inputType="url"
+                placeholder="e.g. https://webhook.domain.ltd"
+                className="mb-2"
+              />
+
+              <p className="learn-more mb-4">
+                <a href="#" target="_blank">
+                  Learn more
+                </a>
+              </p>
+
               <FormGroup
                 setter={setDescription}
                 getter={description}
