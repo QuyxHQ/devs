@@ -104,12 +104,20 @@ const Register = () => {
           <hr />
         </div>
 
-        <button className="oauth-btn mb-2" type="button" disabled>
+        <button
+          className="oauth-btn mb-2"
+          type="button"
+          onClick={() => alert("not supported yet")}
+        >
           <FcGoogle size={18} />
           <span>Continue with Google</span>
         </button>
 
-        <button className="oauth-btn" type="button" disabled>
+        <button
+          className="oauth-btn"
+          type="button"
+          onClick={() => alert("not supported yet")}
+        >
           <RxGithubLogo size={18} />
           <span>Continue with GitHub</span>
         </button>
