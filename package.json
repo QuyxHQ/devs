@@ -10,10 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@quyx/siws": "^0.1.5",
+    "@solana/wallet-adapter-react": "^0.15.34",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@solana/web3.js": "^1.91.1",
     "axios": "^1.6.7",
+    "bs58": "^5.0.0",
     "buffer": "^6.0.3",
     "date-fns": "^3.3.1",
-    "ethers": "^5.5.1",
     "lodash.debounce": "^4.0.8",
     "process": "^0.11.10",
     "react": "^17.0.2",
@@ -24,9 +29,7 @@
     "react-json-view": "^1.21.3",
     "react-router-dom": "6.16",
     "recharts": "^2.12.1",
-    "siwe": "^1.1.2",
-    "uuid": "^9.0.1",
-    "wagmi": "^0.4.10"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.9",

@@ -32,7 +32,7 @@ const Layout = ({ children }: { children: React.JSX.Element }) => {
         >
           <main className="body">{children}</main>
 
-          <footer>
+          <footer className="mt-5">
             <h4>
               <strong>Quyx</strong> &copy; {new Date().getFullYear()}
             </h4>

@@ -3,6 +3,7 @@ import { AnchorLink, FormGroup, LoadingContentOnButton, Logo } from "../..";
 import { FcGoogle } from "react-icons/fc";
 import { RxGithubLogo } from "react-icons/rx";
 import { api } from "../../../utils/class/api.class";
+import settings from "../../../utils/settings";
 
 const Register = () => {
   const [email, setEmail] = useState<string>("");
@@ -104,23 +105,19 @@ const Register = () => {
           <hr />
         </div>
 
-        <button
-          className="oauth-btn mb-2"
-          type="button"
-          onClick={() => alert("not supported yet")}
-        >
-          <FcGoogle size={18} />
-          <span>Continue with Google</span>
-        </button>
+        <a href={`${settings.ENDPOINT_URL}/dev/oauth/init/google`}>
+          <button className="oauth-btn mb-2" type="button">
+            <FcGoogle size={18} />
+            <span>Continue with Google</span>
+          </button>
+        </a>
 
-        <button
-          className="oauth-btn"
-          type="button"
-          onClick={() => alert("not supported yet")}
-        >
-          <RxGithubLogo size={18} />
-          <span>Continue with GitHub</span>
-        </button>
+        <a href={`${settings.ENDPOINT_URL}/dev/oauth/init/github`}>
+          <button className="oauth-btn" type="button">
+            <RxGithubLogo size={18} />
+            <span>Continue with GitHub</span>
+          </button>
+        </a>
       </form>
 
       <div className="extra">

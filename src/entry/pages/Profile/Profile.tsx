@@ -67,7 +67,7 @@ const Profile = () => {
         <div className="single-info">
           <p>Company</p>
           <div>
-            <h4>{userInfo?.company}</h4>
+            <h4>{userInfo?.company || "n/a"}</h4>
 
             <div className="icons">
               <AnchorLink to="/settings">

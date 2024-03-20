@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { FormGroup, LoadingContentOnButton } from "../../..";
 import { useSandboxStore } from "../../../context/SandboxProvider";
 import settings from "../../../../utils/settings";
@@ -11,10 +11,10 @@ const Import = () => {
   const [options, setOptions] = useState<{ label: string; value: string }[]>([]);
   const [card, setCard] = useState<string>("");
 
-  const { data: accountData } = useAccount();
+  const { publicKey } = useWallet();
   const { sandboxSdk, setResponse } = useSandboxStore();
 
-  useEffect(() => setAddress(accountData?.address!), [accountData]);
+  useEffect(() => setAddress(publicKey?.toBase58() || ""), [publicKey]);
 
   useEffect(() => {
     (async function () {
@@ -80,7 +80,7 @@ const Import = () => {
           {!isLoading && options.length == 0 ? (
             <p className="mb-4 link">
               Heads up! You don't have any card yet! Create one&nbsp;
-              <a href={settings.CLIENT_URL} target="_blank">
+              <a href={`${settings.CLIENT_URL}/new-card`} target="_blank">
                 here
               </a>
             </p>

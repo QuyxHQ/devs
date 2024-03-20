@@ -8,6 +8,7 @@ export const ROLES = [
 
 export const HEARD_US_FROM = [
   "Google",
+  "Colosseum",
   "DoraHacks",
   "X (Formerly Twitter)",
   "Youtube",

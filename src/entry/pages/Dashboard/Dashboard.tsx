@@ -8,7 +8,10 @@ const Dashboard = () => {
     <section>
       <h1 className="page-title mb-4">Dashboard</h1>
 
-      {!userInfo?.role || !userInfo.heardUsFrom || !userInfo.isEmailVerified ? (
+      {!userInfo?.role ||
+      !userInfo.heardUsFrom ||
+      !userInfo.isEmailVerified ||
+      !userInfo.company ? (
         <CompleteOnboarding />
       ) : null}
 

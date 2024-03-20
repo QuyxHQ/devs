@@ -5,14 +5,14 @@ class Api {
   constructor(private apiSdk: ApiHttpClient) {}
 
   async metadata() {
-    const { data, error } = await this.apiSdk.getInstance().get("/metadata");
+    const { data, error } = await this.apiSdk.getInstance().get("/misc/metadata");
 
     if (error || !data.status) return undefined;
     return data.data as QuyxMetadata;
   }
 
-  async getNonce() {
-    const resp = await this.apiSdk.getInstance().get("/session/nonce");
+  async getNonce(address: string) {
+    const resp = await this.apiSdk.getInstance().get(`/session/nonce/${address}`);
     return resp.data as ApiResponse<
       | {
           nonce: string;
@@ -75,10 +75,19 @@ class Api {
     return true;
   }
 
-  async onboard({ role, heardUsFrom }: { role: string; heardUsFrom: string }) {
+  async onboard({
+    role,
+    heardUsFrom,
+    company,
+  }: {
+    role: string;
+    heardUsFrom: string;
+    company: string;
+  }) {
     const { data, error } = await this.apiSdk.getInstance().put("/dev/onboard", {
       role,
       heardUsFrom,
+      company,
     });
 
     if (error || !data.status) {
@@ -151,12 +160,14 @@ class Api {
     firstName,
     lastName,
     company,
+    role,
   }: Partial<Omit<RegisterProps, "password">>) {
     const { data, error } = await this.apiSdk.getInstance().put("/dev/edit", {
       email,
       firstName,
       lastName,
       company: company ?? null,
+      role,
     });
 
     if (error) {
@@ -267,7 +278,7 @@ class Api {
   }) {
     const { data } = await this.apiSdk
       .getInstance()
-      .get(`/sdk/users/dev/${app}?limit=${limit}&page=${page}`);
+      .get(`/app/users/${app}?limit=${limit}&page=${page}`);
 
     return data as ApiPaginationResponse<QuyxSDKUser[] | undefined>;
   }
@@ -524,6 +535,7 @@ class Api {
 
     localStorage.removeItem("quyx_dev_access_token");
     localStorage.removeItem("quyx_dev_refresh_token");
+
     return true;
   }
 }

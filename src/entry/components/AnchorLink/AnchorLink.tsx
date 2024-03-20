@@ -8,6 +8,7 @@ const AnchorLink = (props: AnchorLinkProps) => {
       style={props.style}
       onClick={props.handleClick}
       title={props.title}
+      target={props.target}
     >
       {props.children}
     </Link>

@@ -31,7 +31,7 @@ const FindUser = () => {
             getter={address}
             setter={setAddress}
             label="Address"
-            placeholder="e.g. 0x0aabbb..........."
+            placeholder="e.g. Solana wallet addres...."
             className="w-100 mb-3"
             displayLabel={false}
           />

@@ -70,6 +70,7 @@ const Sidebar = () => {
     {
       to: settings.DOCS_URL,
       title: "Documentation",
+      target: "_blank",
       icon: <TbFile />,
     },
     {
@@ -108,7 +109,7 @@ const Sidebar = () => {
             key={`navigation-${i}`}
             onClick={item.fn}
           >
-            <AnchorLink to={item.to}>
+            <AnchorLink to={item.to} target={item.target}>
               {item.icon}
 
               <span className="d-md-none d-lg-block">

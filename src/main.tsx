@@ -2,39 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App.tsx";
 import AppProvider from "./entry/context/AppProvider.tsx";
-import { WagmiConfig, createClient, defaultChains, configureChains } from "wagmi";
-import { publicProvider } from "wagmi/providers/public";
-import { InjectedConnector } from "wagmi/connectors/injected";
 import SandboxProvider from "./entry/context/SandboxProvider.tsx";
-
-const { chains, provider, webSocketProvider } = configureChains(defaultChains, [
-  publicProvider(),
-]);
-
-const client = createClient({
-  autoConnect: true,
-  connectors: [
-    new InjectedConnector({
-      chains,
-      options: {
-        name: "Injected",
-        shimDisconnect: true,
-      },
-    }),
-  ],
-  provider,
-  webSocketProvider,
-});
+import SolanaProvider from "./entry/context/SolanaProvider.tsx";
 
 ReactDOM.render(
   <React.StrictMode>
-    <WagmiConfig client={client}>
-      <AppProvider>
-        <SandboxProvider>
+    <AppProvider>
+      <SandboxProvider>
+        <SolanaProvider>
           <App />
-        </SandboxProvider>
-      </AppProvider>
-    </WagmiConfig>
+        </SolanaProvider>
+      </SandboxProvider>
+    </AppProvider>
   </React.StrictMode>,
   document.getElementById("root")!
 );

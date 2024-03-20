@@ -11,7 +11,6 @@ import {
   TbUserSearch,
   TbX,
 } from "react-icons/tb";
-import { useAccount, useConnect, useDisconnect, useNetwork } from "wagmi";
 import {
   Cards,
   Current,
@@ -22,20 +21,20 @@ import {
   FindUser,
 } from "./components";
 import { useEffect, useState } from "react";
+import ReactJson from "react-json-view";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { copyToClipboard, truncateAddress } from "../../../utils/helpers";
 import { FormGroup, Loader, LoadingContentOnButton } from "../..";
-import { TOAST_STATUS, customToast } from "../../../utils/toast.utils";
-import ReactJson from "react-json-view";
 import { useSandboxStore } from "../../context/SandboxProvider";
 import { api } from "../../../utils/class/api.class";
 import settings from "../../../utils/settings";
+import { chainId } from "../../context/SolanaProvider";
 
 const Sandbox = () => {
-  const { connect, connectors, error, isConnecting } = useConnect();
-  const { disconnect } = useDisconnect();
-  const { data: accountData } = useAccount();
-  const { activeChain } = useNetwork();
   const { response, clientId, setClientId, isMounting, isLoggedIn } = useSandboxStore();
+  const { publicKey, disconnect, connecting } = useWallet();
+  const { setVisible } = useWalletModal();
 
   const [selectedMethod, setSelectedMethod] = useState<number>(0);
   const [_clientId, _setClientId] = useState<string>("");
@@ -44,7 +43,8 @@ const Sandbox = () => {
 
   useEffect(() => {
     (async function () {
-      if (accountData?.address) {
+      if (publicKey) {
+        // if wallet has been connected
         setIsLoading(true);
         const resp = await api.getAllApps({ page: 1, limit: 1000 });
         if (!resp.status || !resp.data) return;
@@ -55,11 +55,7 @@ const Sandbox = () => {
         setIsLoading(false);
       }
     })();
-  }, [accountData]);
-
-  useEffect(() => {
-    if (error) customToast({ type: TOAST_STATUS.ERROR, message: error.message });
-  }, [error]);
+  }, [publicKey]);
 
   const methods = [
     {
@@ -113,11 +109,11 @@ const Sandbox = () => {
     },
   ];
 
-  function disconnectWallet() {
-    if (!accountData?.address) return;
+  async function disconnectWallet() {
+    if (!publicKey) return;
     if (!confirm("Are you sure you want to disconnect your wallet?")) return;
 
-    disconnect();
+    await disconnect();
   }
 
   return (
@@ -151,7 +147,7 @@ const Sandbox = () => {
           <div className="col-12 col-md-7 col-xl-5">
             <div className="sandbox-options">
               <div className="body">
-                {accountData?.address ? (
+                {publicKey ? (
                   clientId ? (
                     isMounting ? (
                       <div className="connect-wallet mt-5">
@@ -218,10 +214,10 @@ const Sandbox = () => {
                     </p>
                     <button
                       className="btn blue"
-                      onClick={() => connect(connectors[0])}
-                      disabled={isConnecting}
+                      onClick={() => setVisible(true)}
+                      disabled={connecting}
                     >
-                      {isConnecting ? <LoadingContentOnButton /> : <>Connect &raquo;</>}
+                      {connecting ? <LoadingContentOnButton /> : <>Connect &raquo;</>}
                     </button>
                   </div>
                 )}
@@ -230,13 +226,13 @@ const Sandbox = () => {
               <div className="footer">
                 <div className="d-flex align-items-center justify-content-between">
                   <div className="status d-flex align-items-center">
-                    <span className={accountData?.address ? "green" : "red"}></span>
-                    <p>{accountData?.address ? "connected" : "disconnected"}</p>
+                    <span className={publicKey ? "green" : "red"}></span>
+                    <p>{publicKey ? "connected" : "disconnected"}</p>
                   </div>
 
                   <div className="d-flex align-items-center c-and-a">
                     <div className="address d-flex align-items-center">
-                      <p>{truncateAddress(accountData?.address) ?? "-------"}</p>
+                      <p>{truncateAddress(publicKey?.toBase58()) ?? "-------"}</p>
 
                       <div
                         className="d-flex align-items-center"
@@ -244,7 +240,7 @@ const Sandbox = () => {
                       >
                         <TbCopy
                           className="pointer"
-                          onClick={() => copyToClipboard(accountData?.address ?? "--")}
+                          onClick={() => copyToClipboard(publicKey?.toBase58() ?? "--")}
                         />
 
                         <TbX className="pointer" onClick={disconnectWallet} />
@@ -253,7 +249,7 @@ const Sandbox = () => {
 
                     <div className="chain d-flex align-items-center">
                       <p>
-                        Chain ID: <strong>{activeChain?.id ?? "--"}</strong>
+                        Chain ID: <strong>{chainId}</strong>
                       </p>
                     </div>
                   </div>

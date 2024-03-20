@@ -1,9 +1,10 @@
-import { SiweMessage } from "siwe";
 import ApiHttpClient from "../api.utils";
 import settings from "../settings";
 import { TOAST_STATUS, customToast } from "../toast.utils";
 import { api } from "./api.class";
 import axios, { AxiosError } from "axios";
+import { QuyxSIWS, QuyxSIWSProps } from "@quyx/siws";
+import bs58 from "bs58";
 
 export default class Sandbox {
   private apiSdk: ApiHttpClient;
@@ -29,8 +30,8 @@ export default class Sandbox {
     });
   }
 
-  async init({ address, chainId }: { address: string; chainId: number }) {
-    const { data } = await api.getNonce();
+  async init({ address }: { address: string }) {
+    const { data } = await api.getNonce(address);
     if (!data) {
       customToast({
         type: TOAST_STATUS.ERROR,
@@ -40,39 +41,24 @@ export default class Sandbox {
       return undefined;
     }
 
-    const message = new SiweMessage({
-      domain: document.location.host,
-      address,
-      chainId,
-      uri: document.location.origin,
-      version: "1",
-      statement: `Welcome to Quyx Developers Sandbox! Sign this message to verify ownership of wallet in order to continue`,
-      nonce: data.nonce,
-      expirationTime: data.expirationTime,
-      issuedAt: data.issuedAt,
-    });
-
-    return message;
+    return { ...data, address, chainId: "devnet" } as QuyxSIWSProps;
   }
 
-  async login({
-    address,
-    message,
-    signature,
-  }: {
-    address: string;
-    message: SiweMessage;
-    signature: string;
-  }) {
-    const resp = await this.apiSdk
-      .getInstance()
-      .post("/login", { message, address, signature });
+  async login({ message, signature }: { message: QuyxSIWSProps; signature: Uint8Array }) {
+    const msg = new QuyxSIWS(message);
+    const isvalid = msg.validate(signature);
+    console.log("is valid: ", isvalid);
+
+    const resp = await this.apiSdk.getInstance().post("/login", {
+      message: { ...message, statement: msg.statement, domain: msg.domain },
+      signature: bs58.encode(signature),
+    });
 
     return resp;
   }
 
   async currentSdkUser() {
-    const resp = await this.apiSdk.getInstance().get("/current");
+    const resp = await this.apiSdk.getInstance().get("/whoami");
     return resp;
   }
 

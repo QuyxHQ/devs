@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSandboxStore } from "../../../context/SandboxProvider";
-import { useAccount } from "wagmi";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { FormGroup, LoadingContentOnButton } from "../../..";
 
 const Current = () => {
   const [address, setAddress] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { data: accountData } = useAccount();
+  const { publicKey } = useWallet();
   const { sandboxSdk, setResponse } = useSandboxStore();
 
-  useEffect(() => setAddress(accountData?.address!), [accountData]);
+  useEffect(() => setAddress(publicKey?.toBase58() || ""), [publicKey]);
 
   async function getCurrentUser() {
     if (!sandboxSdk || isLoading) return;

@@ -10,6 +10,7 @@ const CompleteOnboarding = () => {
 
   const [role, setRole] = useState<string>("");
   const [heardUsFrom, setHeardUsFrom] = useState<string>("");
+  const [company, setCompany] = useState<string>("");
   const [displayModal, setDisplayModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -17,6 +18,7 @@ const CompleteOnboarding = () => {
     if (userInfo) {
       setRole(userInfo.role ?? "");
       setHeardUsFrom(userInfo.heardUsFrom ?? "");
+      setCompany(userInfo.company ?? "");
     }
   }, [userInfo]);
 
@@ -26,7 +28,7 @@ const CompleteOnboarding = () => {
 
     setIsLoading(true);
 
-    const resp = await api.onboard({ heardUsFrom, role });
+    const resp = await api.onboard({ heardUsFrom, role, company });
     if (resp) window.location.reload();
 
     setIsLoading(false);
@@ -103,6 +105,21 @@ const CompleteOnboarding = () => {
                     />
                   </div>
                 </div>
+
+                {userInfo?.company ? null : (
+                  <div className="col-12 col-sm-5 col-md-12">
+                    <div>
+                      <FormGroup
+                        setter={setCompany}
+                        getter={company}
+                        inputType="text"
+                        label="Company"
+                        placeholder="e.g. QuyxHQ"
+                        required
+                      />
+                    </div>
+                  </div>
+                )}
 
                 <div className="col-12">
                   <button

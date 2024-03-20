@@ -33,8 +33,6 @@ const SdkLogs = () => {
         ) : logs.length == 0 ? (
           <div className="error-div">
             <EmptyLogIcon className="mb-0" />
-
-            <h3>no logs yet!</h3>
           </div>
         ) : (
           <div>

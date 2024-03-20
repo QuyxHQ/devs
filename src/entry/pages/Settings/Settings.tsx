@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ROLES } from "../../../utils/constants";
 import { api } from "../../../utils/class/api.class";
-import { FormGroup } from "../..";
+import { FormGroup, LoadingContentOnButton } from "../..";
 import { useAppStore } from "../../context/AppProvider";
 import { useNavigate } from "react-router";
 import { dateUTC } from "../../../utils/helpers";
@@ -21,6 +21,7 @@ const Settings = () => {
   useEffect(() => {
     (function () {
       if (!userInfo || !metadata) return;
+      if (userInfo.provider != "email") return; // they don't need sudo!
       if (!userInfo.verifiedPasswordLastOn) return navigate("/sudo");
 
       if (
@@ -96,10 +97,13 @@ const Settings = () => {
                     <FormGroup
                       getter={email}
                       setter={setEmail}
-                      label="Email address"
+                      label={`Email address ${
+                        userInfo?.provider != "email" ? "(~cannot edit~)" : ""
+                      } `}
                       inputType="email"
                       placeholder="e.g. user@domain.ltd"
                       required
+                      readOnly={userInfo?.provider != "email"}
                     />
                   </div>
 
@@ -129,8 +133,9 @@ const Settings = () => {
                     <button
                       className="btn blue"
                       style={{ width: "100%", maxWidth: "11rem" }}
+                      disabled={isLoading}
                     >
-                      Save Changes
+                      {isLoading ? <LoadingContentOnButton /> : "Save Changes"}
                     </button>
                   </div>
                 </div>

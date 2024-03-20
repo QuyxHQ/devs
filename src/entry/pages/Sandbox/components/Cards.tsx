@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useAccount } from "wagmi";
+import { useWallet } from "@solana/wallet-adapter-react";
 import { FormGroup, LoadingContentOnButton } from "../../..";
 import { useSandboxStore } from "../../../context/SandboxProvider";
 import { TOAST_STATUS, customToast } from "../../../../utils/toast.utils";
@@ -10,10 +10,10 @@ const Cards = () => {
   const [limit, setLimit] = useState<string>("10");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { data: accountData } = useAccount();
+  const { publicKey } = useWallet();
   const { sandboxSdk, setResponse } = useSandboxStore();
 
-  useEffect(() => setAddress(accountData?.address!), [accountData]);
+  useEffect(() => setAddress(publicKey?.toBase58() || ""), [publicKey]);
 
   async function getCurrentUserCards() {
     if (!sandboxSdk || isLoading) return;

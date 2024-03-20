@@ -67,6 +67,7 @@ type QuyxDev = Base & {
   company: string | null;
   role: string;
   heardUsFrom: string;
+  provider: "email" | "google" | "github";
   verifiedPasswordLastOn: Date | null;
   isEmailVerified: boolean;
 };
@@ -178,6 +179,7 @@ type AnchorLinkProps = {
   style?: React.CSSProperties;
   handleClick?: () => void;
   title?: string;
+  target?: string;
 };
 
 type LayoutDependantsProps = {
