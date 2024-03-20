@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { AnchorLink, FormGroup, LoadingContentOnButton, Logo } from "../..";
-import { FcGoogle } from "react-icons/fc";
-import { RxGithubLogo } from "react-icons/rx";
+import { AnchorLink, FormGroup, LoadingContentOnButton, Logo, OAuthButtons } from "../..";
 import { api } from "../../../utils/class/api.class";
-import settings from "../../../utils/settings";
 
 const Register = () => {
   const [email, setEmail] = useState<string>("");
@@ -99,25 +96,7 @@ const Register = () => {
           {isLoading ? <LoadingContentOnButton /> : "Sign up"}
         </button>
 
-        <div className="d-flex align-items-center or my-4">
-          <hr />
-          <span>or</span>
-          <hr />
-        </div>
-
-        <a href={`${settings.ENDPOINT_URL}/dev/oauth/init/google`}>
-          <button className="oauth-btn mb-2" type="button">
-            <FcGoogle size={18} />
-            <span>Continue with Google</span>
-          </button>
-        </a>
-
-        <a href={`${settings.ENDPOINT_URL}/dev/oauth/init/github`}>
-          <button className="oauth-btn" type="button">
-            <RxGithubLogo size={18} />
-            <span>Continue with GitHub</span>
-          </button>
-        </a>
+        <OAuthButtons redirect_to="/get-started" />
       </form>
 
       <div className="extra">

@@ -18,6 +18,8 @@ import {
   Users,
   VerifyEmail,
   Middleware,
+  OAuthError,
+  OAuthSuccess,
 } from "./entry";
 import { Toaster } from "react-hot-toast";
 
@@ -83,6 +85,14 @@ const App = () => {
     {
       path: "/sudo",
       element: <Middleware children={<Sudo />} />,
+    },
+    {
+      path: "/oauth/error",
+      element: <OAuthError />,
+    },
+    {
+      path: "/oauth/success",
+      element: <OAuthSuccess />,
     },
   ]);
 

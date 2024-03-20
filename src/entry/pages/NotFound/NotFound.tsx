@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
   const navigate = useNavigate();
-  // useEffect(() => navigate("/"), []);
+  useEffect(() => navigate("/"), []);
 
   return null;
 };

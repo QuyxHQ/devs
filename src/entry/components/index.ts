@@ -12,6 +12,7 @@ export { default as Logo } from "./Logo";
 export { default as Middleware } from "./Middleware";
 export { default as Modal } from "./Modal";
 export { default as Navbar } from "./Navbar";
+export { default as OAuthButtons } from "./OAuthButtons";
 export { default as Sidebar } from "./Sidebar";
 export { default as TagsInput } from "./TagsInput";
 export { default as VerifyEmailComponent } from "./VerifyEmailComponent";

@@ -1,11 +1,11 @@
 import {
   TbBrandTypescript,
   TbBrandReact,
-  TbBrandReactNative,
   TbArrowRight,
   TbTools,
   TbBrandNodejs,
 } from "react-icons/tb";
+import { LuCoins } from "react-icons/lu";
 import settings from "../../../../utils/settings";
 
 const Libraries = () => {
@@ -29,18 +29,16 @@ const Libraries = () => {
     {
       name: "@quyx/react",
       platform: "React",
-      isComingSoon: true,
       icon: <TbBrandReact stroke="#61DAFB" size={65} strokeWidth={1} />,
-      text: "xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx",
+      text: "React library built around solana's wallet adapter, but with extra features to make integrating with quyx easier",
       url: `${settings.DOCS_URL}/sdks/react`,
     },
     {
-      name: "@quyx/react-native",
-      platform: "React Native",
-      isComingSoon: true,
-      icon: <TbBrandReactNative stroke="#61DAFB" size={65} strokeWidth={1} />,
-      text: "xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx xxxxxxxxxxxxxxxx",
-      url: `${settings.DOCS_URL}/sdks/react-native`,
+      name: "@quyx/siws",
+      platform: "TypeScript",
+      icon: <LuCoins stroke="purple" size={65} strokeWidth={1} />,
+      text: "TypeScript library to help sign and verify messages. SIWS(Sign-In-With-Solana)",
+      url: `${settings.DOCS_URL}/sdks/siws`,
     },
   ];
 

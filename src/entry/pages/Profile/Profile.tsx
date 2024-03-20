@@ -57,7 +57,10 @@ const Profile = () => {
                 />
               )}
 
-              <AnchorLink to="/settings">
+              <AnchorLink
+                to="/settings"
+                style={userInfo?.provider != "email" ? { visibility: "hidden" } : {}}
+              >
                 <TbPencil />
               </AnchorLink>
             </div>
@@ -69,7 +72,7 @@ const Profile = () => {
           <div>
             <h4>{userInfo?.company || "n/a"}</h4>
 
-            <div className="icons">
+            <div className="icons" style={{ visibility: "hidden" }}>
               <AnchorLink to="/settings">
                 <TbPencil />
               </AnchorLink>
@@ -91,18 +94,20 @@ const Profile = () => {
         </div>
       </div>
 
-      <button
-        className="btn border mb-5"
-        style={{ width: "100%", maxWidth: "11rem" }}
-        type="button"
-        onClick={() => {
-          setSize("lg");
-          setModalBody(<ResetPassword close={setDisplayModal} />);
-          setDisplayModal(true);
-        }}
-      >
-        Reset Password
-      </button>
+      {userInfo?.provider == "email" ? (
+        <button
+          className="btn border mb-5"
+          style={{ width: "100%", maxWidth: "11rem" }}
+          type="button"
+          onClick={() => {
+            setSize("lg");
+            setModalBody(<ResetPassword close={setDisplayModal} />);
+            setDisplayModal(true);
+          }}
+        >
+          Reset Password
+        </button>
+      ) : null}
     </section>
   );
 };

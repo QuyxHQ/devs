@@ -111,7 +111,7 @@ const Settings = () => {
                     <FormGroup
                       getter={company}
                       setter={setCompany}
-                      label="Company"
+                      label="Company (~cannot edit~)"
                       inputType="text"
                       placeholder="e.g. QuyxHQ"
                       readOnly
