@@ -117,8 +117,8 @@ export default class Sandbox {
     return data as ApiPaginationResponse<QuyxSDKUser[]>;
   }
 
-  async getSingleUser({ address }: { address: string }) {
-    const resp = await this.apiSdk.getInstance().get(`/user/single/${address}`);
+  async getSingleUser({ query }: { query: string }) {
+    const resp = await this.apiSdk.getInstance().get(`/user/single/${query}`);
     return resp;
   }
 
