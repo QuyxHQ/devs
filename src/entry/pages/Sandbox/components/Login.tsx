@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
-import { QuyxSIWS, QuyxSIWSProps } from "@quyx/siws";
+import { QuyxSIWS } from "@quyx/siws";
 import { useSandboxStore } from "../../../context/SandboxProvider";
 import { LoadingContentOnButton } from "../../..";
 import { truncateAddress } from "../../../../utils/helpers";
 import { PiThumbsUp } from "react-icons/pi";
 
 const Login = () => {
-  const [message, setMessage] = useState<QuyxSIWSProps>();
+  const [message, setMessage] = useState<Object>();
   const [signature, setSignature] = useState<Uint8Array>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [btnText, setBtnText] = useState<string>("Preparing message");

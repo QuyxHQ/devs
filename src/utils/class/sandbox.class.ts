@@ -3,8 +3,8 @@ import settings from "../settings";
 import { TOAST_STATUS, customToast } from "../toast.utils";
 import { api } from "./api.class";
 import axios, { AxiosError } from "axios";
-import { QuyxSIWS, QuyxSIWSProps } from "@quyx/siws";
-import bs58 from "bs58";
+import { QuyxSIWS, signatureToString } from "@quyx/siws";
+import { chainId } from "../../entry/context/SolanaProvider";
 
 export default class Sandbox {
   private apiSdk: ApiHttpClient;
@@ -41,17 +41,15 @@ export default class Sandbox {
       return undefined;
     }
 
-    return { ...data, address, chainId: "devnet" } as QuyxSIWSProps;
+    return { ...data, address, chainId, domain: window.location.origin };
   }
 
-  async login({ message, signature }: { message: QuyxSIWSProps; signature: Uint8Array }) {
+  async login({ message, signature }: { message: any; signature: Uint8Array }) {
     const msg = new QuyxSIWS(message);
-    const isvalid = msg.validate(signature);
-    console.log("is valid: ", isvalid);
 
     const resp = await this.apiSdk.getInstance().post("/login", {
       message: { ...message, statement: msg.statement, domain: msg.domain },
-      signature: bs58.encode(signature),
+      signature: signatureToString(signature),
     });
 
     return resp;

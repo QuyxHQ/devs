@@ -10,13 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@quyx/siws": "^0.1.5",
+    "@quyx/siws": "^0.1.6",
     "@solana/wallet-adapter-react": "^0.15.34",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/wallet-adapter-wallets": "^0.19.32",
     "@solana/web3.js": "^1.91.1",
     "axios": "^1.6.7",
-    "bs58": "^5.0.0",
     "buffer": "^6.0.3",
     "date-fns": "^3.3.1",
     "lodash.debounce": "^4.0.8",
