@@ -11,7 +11,7 @@ const Login = () => {
         if (isLoading) return;
         setIsLoading(true);
 
-        setTimeout(() => (window.location.href = `${settings.ENDPOINT_URL}${path}`), 500);
+        window.location.href = `${settings.ENDPOINT_URL}${path}`;
     }
 
     return (
@@ -27,7 +27,7 @@ const Login = () => {
                 >
                     By continuing you agree to Quyx's&nbsp;
                     <AnchorLink
-                        to="/terms-of-use"
+                        to="/terms-of-use.pdf"
                         style={{
                             color: 'blue',
                             borderBottom: '1px solid blue',
@@ -40,7 +40,7 @@ const Login = () => {
                     </AnchorLink>
                     . Read our&nbsp;
                     <AnchorLink
-                        to="/privacy-policy"
+                        to="/privacy-policy.pdf"
                         style={{
                             color: 'blue',
                             borderBottom: '1px solid blue',
