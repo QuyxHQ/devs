@@ -137,7 +137,7 @@ const DashboardMetrics = () => {
                                                             style={{ backgroundColor: '#8884d8' }}
                                                         ></span>
                                                         <p>
-                                                            This week:{' '}
+                                                            Last week:{' '}
                                                             {metrics.logs.week1.total_week} requests
                                                         </p>
                                                     </div>
@@ -147,7 +147,7 @@ const DashboardMetrics = () => {
                                                             style={{ backgroundColor: '#82ca9d' }}
                                                         ></span>
                                                         <p>
-                                                            Last week:{' '}
+                                                            This week:{' '}
                                                             {metrics.logs.week2.total_week} requests
                                                         </p>
                                                     </div>

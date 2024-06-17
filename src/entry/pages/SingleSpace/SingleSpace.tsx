@@ -48,6 +48,11 @@ const SingleSpace = () => {
         })();
     }, [did]);
 
+    useEffect(() => {
+        if (!space) return;
+        getLogs(space._id);
+    }, [space, page, limit]);
+
     async function getLogs(space: string) {
         const resp = await api.getSpaceLogs({ space, limit, page });
 

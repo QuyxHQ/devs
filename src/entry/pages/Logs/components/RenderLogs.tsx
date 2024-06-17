@@ -10,7 +10,7 @@ const RenderLogs = ({ limit, setLimit, page, setPage, total, data }: RenderTable
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Route</th>
+                            <th>Action</th>
                             <th>App</th>
                             <th>Status</th>
                             <th>Response Time</th>
@@ -34,7 +34,9 @@ const RenderLogs = ({ limit, setLimit, page, setPage, total, data }: RenderTable
                                     </div>
                                 </td>
                                 <td>
-                                    <span className="green">{item.response_time}ms</span>
+                                    <span className="green">
+                                        {(item.response_time / 1000).toFixed(2)}s
+                                    </span>
                                 </td>
                                 <td>
                                     <div className="log">
