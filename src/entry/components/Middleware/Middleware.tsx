@@ -31,7 +31,7 @@ const Middleware = ({ children }: { children: React.JSX.Element }) => {
             className="middleware-loader d-flex align-items-center justify-content-center w-100"
             style={{ height: '100vh' }}
         >
-            <Logo width={60} height={60} />
+            <Logo width={50} height={50} />
         </div>
     ) : !isLoggedIn && !unprotectedRoutes.includes(location.pathname) ? null : isLoggedIn &&
       unprotectedRoutes.includes(location.pathname) ? null : outOfLayoutRoutes.includes(
