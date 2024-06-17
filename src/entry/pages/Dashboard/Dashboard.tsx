@@ -1,25 +1,14 @@
-import { CompleteOnboarding, DashboardMetrics, Libraries } from "./components";
-import { useAppStore } from "../../context/AppProvider";
+import { DashboardMetrics, Libraries } from './components';
 
 const Dashboard = () => {
-  const { userInfo } = useAppStore();
+    return (
+        <section>
+            <h1 className="page-title mb-4">Dashboard</h1>
 
-  return (
-    <section>
-      <h1 className="page-title mb-4">Dashboard</h1>
-
-      {!userInfo?.role ||
-      !userInfo.heardUsFrom ||
-      !userInfo.isEmailVerified ||
-      !userInfo.company ? (
-        <CompleteOnboarding />
-      ) : null}
-
-      <DashboardMetrics />
-
-      <Libraries />
-    </section>
-  );
+            <DashboardMetrics />
+            <Libraries />
+        </section>
+    );
 };
 
 export default Dashboard;

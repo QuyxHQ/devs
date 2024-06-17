@@ -1,71 +1,96 @@
-import { useState } from "react";
-import { AnchorLink, FormGroup, LoadingContentOnButton, Logo, OAuthButtons } from "../..";
-import { api } from "../../../utils/class/api.class";
+import { useState } from 'react';
+import { AnchorLink, LoadingContentOnButton, Logo } from '../..';
+import settings from '../../../utils/settings';
+import { FcGoogle } from 'react-icons/fc';
+import { RxGithubLogo } from 'react-icons/rx';
 
 const Login = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  async function login(e: any) {
-    e.preventDefault();
-    if (isLoading) return;
+    function oauthRedirect(path: string) {
+        if (isLoading) return;
+        setIsLoading(true);
 
-    setIsLoading(true);
+        setTimeout(() => (window.location.href = `${settings.ENDPOINT_URL}${path}`), 500);
+    }
 
-    const resp = await api.login({ email, password });
-    if (resp) window.location.href = "/";
+    return (
+        <section className="form-body d-flex flex-column align-items-center">
+            <Logo width={50} height={50} />
 
-    setIsLoading(false);
-  }
+            <form className="form-container py-5 px-4">
+                <h1 className="mb-3">Developers area</h1>
 
-  return (
-    <section className="form-body d-flex flex-column align-items-center">
-      <Logo width={50} height={50} />
+                <p
+                    className="mb-4 pb-2 text-center"
+                    style={{ fontSize: '0.87rem', lineHeight: '205%', opacity: 0.4 }}
+                >
+                    By continuing you agree to Quyx's&nbsp;
+                    <AnchorLink
+                        to="/terms-of-use"
+                        style={{
+                            color: 'blue',
+                            borderBottom: '1px solid blue',
+                            wordBreak: 'keep-all',
+                            whiteSpace: 'nowrap',
+                            padding: '0.15rem 0.1rem',
+                        }}
+                    >
+                        Terms of use
+                    </AnchorLink>
+                    . Read our&nbsp;
+                    <AnchorLink
+                        to="/privacy-policy"
+                        style={{
+                            color: 'blue',
+                            borderBottom: '1px solid blue',
+                            wordBreak: 'keep-all',
+                            whiteSpace: 'nowrap',
+                            padding: '0.15rem 0.1rem',
+                        }}
+                    >
+                        Privacy Policy
+                    </AnchorLink>
+                </p>
 
-      <form className="form-container py-5 px-4" onSubmit={login}>
-        <h1 className="mb-4 pb-2">Howdy! Dev</h1>
+                <button
+                    className="oauth-btn mb-2"
+                    type="button"
+                    onClick={() => oauthRedirect('/auth/google')}
+                    disabled={isLoading}
+                >
+                    {isLoading ? (
+                        <LoadingContentOnButton text="..." color="#000" />
+                    ) : (
+                        <>
+                            <FcGoogle size={18} />
+                            <span>Continue with Google</span>
+                        </>
+                    )}
+                </button>
 
-        <FormGroup
-          className="mb-4"
-          getter={email}
-          setter={setEmail}
-          label="Email address"
-          inputType="email"
-          placeholder="e.g. user@domain.ltd"
-          required
-        />
+                <button
+                    className="oauth-btn"
+                    type="button"
+                    onClick={() => oauthRedirect('/auth/github')}
+                    disabled={isLoading}
+                >
+                    {isLoading ? (
+                        <LoadingContentOnButton text="..." color="#000" />
+                    ) : (
+                        <>
+                            <RxGithubLogo size={18} />
+                            <span>Continue with GitHub</span>
+                        </>
+                    )}
+                </button>
+            </form>
 
-        <FormGroup
-          className="mb-3"
-          getter={password}
-          setter={setPassword}
-          label="Password"
-          inputType="password"
-          placeholder="********"
-          isPasswordField
-          required
-        />
-
-        <AnchorLink to="/forgot-password" className="d-block mb-4 link-in-form pb-2">
-          <p>Forgot Password?</p>
-        </AnchorLink>
-
-        <button className="btn" type="submit" disabled={isLoading}>
-          {isLoading ? <LoadingContentOnButton /> : "Log in"}
-        </button>
-
-        <OAuthButtons redirect_to="/login" />
-      </form>
-
-      <div className="extra">
-        <p>Don't have an account yet?</p>
-        <AnchorLink to="/get-started">
-          <span>Sign up &raquo;</span>
-        </AnchorLink>
-      </div>
-    </section>
-  );
+            <div className="extra">
+                <p>Copyright &copy; {new Date().getFullYear()}</p>
+            </div>
+        </section>
+    );
 };
 
 export default Login;

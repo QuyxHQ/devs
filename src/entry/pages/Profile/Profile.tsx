@@ -1,115 +1,74 @@
-import { TbAlertTriangle, TbPencil } from "react-icons/tb";
-import { useAppStore } from "../../context/AppProvider";
-import { AnchorLink, Modal, VerifyEmailComponent } from "../..";
-import { useState } from "react";
-import { ResetPassword } from "./components";
+import { TbAt, TbBrandGithub, TbBrandGoogle, TbClock, TbUser } from 'react-icons/tb';
+import { useAppStore } from '../../context/AppProvider';
+import { AnchorLink } from '../..';
+import { formatDate } from '../../../utils/helpers';
 
 const Profile = () => {
-  const { userInfo } = useAppStore();
+    const { userInfo } = useAppStore();
 
-  const [displayModal, setDisplayModal] = useState<boolean>(false);
-  const [size, setSize] = useState<"md" | "lg">("lg");
-  const [modalBody, setModalBody] = useState<React.JSX.Element>();
+    return (
+        <section>
+            <h1 className="page-title mb-4">Profile</h1>
 
-  return (
-    <section>
-      <Modal
-        displayModal={displayModal}
-        setDisplayModal={setDisplayModal}
-        size={size}
-        children={modalBody}
-      />
+            <div className="profile-card mb-4">
+                <div className="single-info">
+                    <p>Full name</p>
+                    <div>
+                        <h4 className="title-case">{userInfo?.name}</h4>
 
-      <h1 className="page-title mb-4">Profile</h1>
+                        <div className="icons">
+                            <AnchorLink to="#">
+                                <TbUser />
+                            </AnchorLink>
+                        </div>
+                    </div>
+                </div>
 
-      <div className="profile-card mb-4">
-        <div className="single-info">
-          <p>Full name</p>
-          <div>
-            <h4 className="title-case">
-              {userInfo?.firstName} {userInfo?.lastName}
-            </h4>
+                <div className="single-info">
+                    <p>Email address</p>
+                    <div>
+                        <h4>{userInfo?.email}</h4>
 
-            <div className="icons">
-              <AnchorLink to="/settings">
-                <TbPencil />
-              </AnchorLink>
+                        <div className="icons">
+                            <AnchorLink to="#">
+                                <TbAt />
+                            </AnchorLink>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="single-info">
+                    <p>OAuth Provider</p>
+                    <div>
+                        <h4>{userInfo?.provider}</h4>
+
+                        <div className="icons">
+                            <AnchorLink to="#">
+                                {userInfo?.provider == 'google' ? (
+                                    <TbBrandGoogle />
+                                ) : (
+                                    <TbBrandGithub />
+                                )}
+                            </AnchorLink>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="single-info">
+                    <p>Joined</p>
+                    <div>
+                        <h4>{formatDate(userInfo?.createdAt)}</h4>
+
+                        <div className="icons">
+                            <AnchorLink to="#">
+                                <TbClock />
+                            </AnchorLink>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-
-        <div className="single-info">
-          <p>Email address</p>
-          <div>
-            <h4>{userInfo?.email}</h4>
-
-            <div className="icons">
-              {userInfo?.isEmailVerified ? null : (
-                <TbAlertTriangle
-                  onClick={() => {
-                    setSize("md");
-                    setModalBody(<VerifyEmailComponent close={setDisplayModal} />);
-                    setDisplayModal(true);
-                  }}
-                  stroke="crimson"
-                  className="pointer"
-                  title="Verify email address"
-                />
-              )}
-
-              <AnchorLink
-                to="/settings"
-                style={userInfo?.provider != "email" ? { visibility: "hidden" } : {}}
-              >
-                <TbPencil />
-              </AnchorLink>
-            </div>
-          </div>
-        </div>
-
-        <div className="single-info">
-          <p>Company</p>
-          <div>
-            <h4>{userInfo?.company || "n/a"}</h4>
-
-            <div className="icons" style={{ visibility: "hidden" }}>
-              <AnchorLink to="/settings">
-                <TbPencil />
-              </AnchorLink>
-            </div>
-          </div>
-        </div>
-
-        <div className="single-info">
-          <p>Role</p>
-          <div>
-            <h4>{userInfo?.role ?? "n/a"}</h4>
-
-            <div className="icons">
-              <AnchorLink to="/settings">
-                <TbPencil />
-              </AnchorLink>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {userInfo?.provider == "email" ? (
-        <button
-          className="btn border mb-5"
-          style={{ width: "100%", maxWidth: "11rem" }}
-          type="button"
-          onClick={() => {
-            setSize("lg");
-            setModalBody(<ResetPassword close={setDisplayModal} />);
-            setDisplayModal(true);
-          }}
-        >
-          Reset Password
-        </button>
-      ) : null}
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Profile;
