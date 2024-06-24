@@ -4,12 +4,12 @@ import settings from '../../../../utils/settings';
 const Libraries = () => {
     const libraries = [
         {
-            name: '@quyx/sdk',
+            name: '@quyx/ts',
             platform: 'TypeScript',
             isComingSoon: false,
             icon: <TbBrandTypescript stroke="dodgerblue" size={65} strokeWidth={1} />,
             text: "A wrapper round all Quyx's functionalities, provides developers with ready-to-use & straightforward APIs",
-            url: `${settings.DOCS_URL}/library/sdk`,
+            url: `${settings.DOCS_URL}/developers/libraries/quyx-sdk`,
         },
         {
             name: '@quyx/ui-react',
@@ -17,7 +17,7 @@ const Libraries = () => {
             isComingSoon: false,
             icon: <TbBrandReact stroke="#61DAFB" size={65} strokeWidth={1} />,
             text: 'A javascript library used to interact with Quyx from the client side in your react application',
-            url: `${settings.DOCS_URL}/library/react`,
+            url: `${settings.DOCS_URL}/developers/libraries/quyx-ui-react`,
         },
     ];
 

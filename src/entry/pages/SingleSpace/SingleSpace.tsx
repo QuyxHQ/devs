@@ -81,7 +81,7 @@ const SingleSpace = () => {
             />
 
             <div className="py-4 single-app-title">
-                <AnchorLink to="/apps" className="d-flex align-items-center back mb-4">
+                <AnchorLink to="/spaces" className="d-flex align-items-center back mb-4">
                     <TbArrowLeft />
                     <span>Spaces</span>
                 </AnchorLink>

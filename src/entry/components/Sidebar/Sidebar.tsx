@@ -68,7 +68,7 @@ const Sidebar = () => {
             <div className="d-md-none d-lg-flex my-3 p-3 py-4 info">
                 <h4 className="title-case">{userInfo?.name}</h4>
                 {/* <p>{maskEmail(userInfo?.email!)}</p> */}
-                <p>ID: {userInfo?._id}</p>
+                <p>OAuth Provider: {userInfo?.provider}</p>
             </div>
 
             <ul>

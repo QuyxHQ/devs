@@ -6,14 +6,24 @@ const RenderMetrics = ({ data, did }: { data?: SpaceMetrics; did: string }) => {
         <div className="row g-3">
             <div className="col-12 col-md-6 col-xl-4">
                 <div className="metrics-box">
-                    <h3>{data?.percentageSuccessfulLast1Hr ?? '--'}%</h3>
+                    <h3>
+                        {data?.percentageSuccessfulLast1Hr == 0
+                            ? 0
+                            : data?.percentageSuccessfulLast1Hr.toFixed(2) ?? '--'}
+                        %
+                    </h3>
                     <p>Successful Rate (last 1 hr)</p>
                 </div>
             </div>
 
             <div className="col-12 col-md-6 col-xl-4">
                 <div className="metrics-box">
-                    <h3>{data?.percentageSuccessfulLast24Hrs ?? '--'}%</h3>
+                    <h3>
+                        {data?.percentageSuccessfulLast24Hrs == 0
+                            ? 0
+                            : data?.percentageSuccessfulLast24Hrs.toFixed(2) ?? '--'}
+                        %
+                    </h3>
                     <p>Successful Rate (last 24 hr)</p>
                 </div>
             </div>

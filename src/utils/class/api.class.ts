@@ -11,14 +11,6 @@ class Api {
         return data.data as Dev;
     }
 
-    async getAllSpaceUsers({ app, page, limit }: { app: string; page: number; limit: number }) {
-        const { data } = await this.apiSdk
-            .getInstance()
-            .get(`/app/users/${app}?limit=${limit}&page=${page}`);
-
-        return data as QuyxSDKUser[] | undefined;
-    }
-
     async getSpaces({ page, limit }: { page: number; limit: number }) {
         const resp = await this.apiSdk.getInstance().get(`/space?limit=${limit}&page=${page}`);
         return (resp.data as Space[]) ?? [];
